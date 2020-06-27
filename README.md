@@ -1,2 +1,2 @@
-# NetCoreSaml
-.Net Core SAML library used for authentication
+# NetCoreSaml2
+.Net Core SAML2 library used for authentication.
