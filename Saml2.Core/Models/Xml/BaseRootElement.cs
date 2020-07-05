@@ -11,7 +11,7 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "string", AttributeName = "Version")]
         public string Version { get; set; }
 
-        [XmlAttribute(DataType = "dateTime", AttributeName = "IssuerInstant")]
+        [XmlAttribute(DataType = "dateTime", AttributeName = "IssueInstant")]
         public DateTime IssueInstant { get; set; }
 
         [XmlElement("Issuer")]
