@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
@@ -6,10 +7,10 @@ namespace Saml2.Core.Models.Xml
     public class SubjectConfirmationData: BaseStringElement
     {
         [XmlAttribute(DataType = "dateTime", AttributeName = "NotBefore")]
-        public string NotBefore { get; set; }
+        public DateTime NotBefore { get; set; }
 
         [XmlAttribute(DataType = "dateTime", AttributeName = "NotOnOrAfter")]
-        public string NotOnOrAfter { get; set; }
+        public DateTime NotOnOrAfter { get; set; }
 
         [XmlAttribute(DataType = "anyURI", AttributeName = "Recipient")]
         public string Recipient { get; set; }
