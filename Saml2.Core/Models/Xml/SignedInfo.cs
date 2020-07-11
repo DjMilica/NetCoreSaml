@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Saml2.Core.Constants;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
@@ -8,13 +9,13 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "ID", AttributeName = "Id")]
         public string Id { get; set; }
 
-        [XmlElement("CanonicalizationMethod")]
+        [XmlElement(ElementName = "CanonicalizationMethod", Namespace = NamespaceConstant.Dsig)]
         public CanonicalizationMethod CanonicalizationMethod { get; set; }
 
-        [XmlElement("SignatureMethod")]
+        [XmlElement(ElementName = "SignatureMethod", Namespace = NamespaceConstant.Dsig)]
         public SignatureMethod SignatureMethod { get; set; }
 
-        [XmlElement("Reference")]
+        [XmlElement(ElementName = "Reference", Namespace = NamespaceConstant.Dsig)]
         public List<Reference> References { get; set; }
     }
 }

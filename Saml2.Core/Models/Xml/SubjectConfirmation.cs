@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Saml2.Core.Constants;
+using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
@@ -7,13 +8,13 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "anyURI", AttributeName = "Method")]
         public string Method { get; set; }
 
-        [XmlElement("NameID")]
+        [XmlElement(ElementName = "NameID", Namespace = NamespaceConstant.Saml)]
         public NameId NameId { get; set; }
 
-        [XmlElement("EncryptedID")]
+        [XmlElement(ElementName = "EncryptedID", Namespace = NamespaceConstant.Saml)]
         public EncryptedId EncryptedId { get; set; }
 
-        [XmlElement("SubjectConfirmationData")]
+        [XmlElement(ElementName = "SubjectConfirmationData", Namespace = NamespaceConstant.Saml)]
         public SubjectConfirmationData SubjectConfirmationData { get; set; }
     }
 }

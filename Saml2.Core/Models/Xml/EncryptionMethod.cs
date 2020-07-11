@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Saml2.Core.Constants;
+using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
@@ -7,10 +8,10 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "anyURI", AttributeName = "Algorithm")]
         public string Algorithm { get; set; }
 
-        [XmlElement("KeySize")]
+        [XmlElement(ElementName = "KeySize", Namespace = NamespaceConstant.Xenc)]
         public KeySize KeySize { get; set; }
 
-        [XmlElement("OAEPparams")]
+        [XmlElement(ElementName = "OAEPparams", Namespace = NamespaceConstant.Xenc)]
         public OaepParams OaepParams { get; set; }
 
         [XmlAnyElement]

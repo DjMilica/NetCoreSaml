@@ -1,13 +1,14 @@
-﻿using System.Xml.Serialization;
+﻿using Saml2.Core.Constants;
+using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
     public class X509IssuerSerialElement
     {
-        [XmlElement("X509IssuerName")]
+        [XmlElement(ElementName = "X509IssuerName", Namespace = NamespaceConstant.Dsig)]
         public X509IssuerNameElement X509IssuerName{ get; set; }
 
-        [XmlElement("X509SerialNumber")]
+        [XmlElement(ElementName = "X509SerialNumber", Namespace = NamespaceConstant.Dsig)]
         public X509SerialNumberElement X509SerialNumber{ get; set; }
     }
 }

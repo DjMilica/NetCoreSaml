@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Saml2.Core.Constants;
+using System;
 using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
@@ -14,10 +15,10 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "dateTime", AttributeName = "IssueInstant")]
         public DateTime IssueInstant { get; set; }
 
-        [XmlElement("Issuer")]
+        [XmlElement(ElementName = "Issuer", Namespace = NamespaceConstant.Saml)]
         public Issuer Issuer { get; set; }
 
-        [XmlElement("Signature")]
+        [XmlElement(ElementName = "Signature", Namespace = NamespaceConstant.Dsig)]
         public Signature Signature { get; set; }
     }
 }

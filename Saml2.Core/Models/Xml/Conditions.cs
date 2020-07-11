@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Saml2.Core.Constants;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -12,13 +13,13 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "dateTime", AttributeName = "NotOnOrAfter")]
         public DateTime NotOnOrAfter { get; set; }
 
-        [XmlElement("AudienceRestriction")]
+        [XmlElement(ElementName = "AudienceRestriction", Namespace = NamespaceConstant.Saml)]
         public List<AudienceRestriction> AudienceRestrictions { get; set; }
 
-        [XmlElement("OneTimeUse")]
+        [XmlElement("OneTimeUse", Namespace = NamespaceConstant.Saml)]
         public OneTimeUse OneTimeUse { get; set; }
 
-        [XmlElement("ProxyRestriction")]
+        [XmlElement("ProxyRestriction", Namespace = NamespaceConstant.Saml)]
         public ProxyRestriction ProxyRestriction { get; set; }
     }
 }

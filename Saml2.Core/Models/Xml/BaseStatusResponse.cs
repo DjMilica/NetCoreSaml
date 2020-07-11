@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Saml2.Core.Constants;
+using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
@@ -7,7 +8,7 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "NCName", AttributeName = "InResponseTo")]
         public string InResponseTo { get; set; }
 
-        [XmlElement("Status")]
+        [XmlElement(ElementName = "Status", Namespace = NamespaceConstant.Samlp)]
         public Status Status { get; set; }
     }
 }

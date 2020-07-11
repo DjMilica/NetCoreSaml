@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Saml2.Core.Constants;
+using System;
 using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
@@ -14,10 +15,10 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "dateTime", AttributeName = "SessionNotOnOrAfter")]
         public DateTime  SessionNotOnOrAfter{ get; set; }
 
-        [XmlElement("SubjectLocality")]
+        [XmlElement(ElementName = "SubjectLocality", Namespace = NamespaceConstant.Saml)]
         public SubjectLocality SubjectLocality { get; set; }
 
-        [XmlElement("AuthnContext")]
+        [XmlElement(ElementName = "AuthnContext", Namespace = NamespaceConstant.Saml)]
         public AuthnContext AuthnContext { get; set; }
     }
 }

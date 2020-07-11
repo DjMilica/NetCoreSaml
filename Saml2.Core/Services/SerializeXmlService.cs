@@ -27,7 +27,7 @@ namespace Saml2.Core.Services
             serializer.UnknownElement += new XmlElementEventHandler(this.UnknownElementHandler);
             serializer.UnknownAttribute += new XmlAttributeEventHandler(this.UnknownAttributeHandler);
 
-            using(TextReader reader = new StringReader(data))
+            using (TextReader reader = new StringReader(data))
             {
                 return (T)serializer.Deserialize(reader);
             }
@@ -36,8 +36,8 @@ namespace Saml2.Core.Services
         public string Serialize<T>(T data) where T : class
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
-            
-            using(StringWriter writer = new StringWriter())
+
+            using (StringWriter writer = new StringWriter())
             {
                 serializer.Serialize(writer, data);
                 return writer.ToString();

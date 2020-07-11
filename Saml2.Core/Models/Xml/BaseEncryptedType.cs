@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Saml2.Core.Constants;
+using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
@@ -16,13 +17,13 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "anyURI", AttributeName = "Encoding")]
         public string Encoding { get; set; }
 
-        [XmlElement("EncryptionMethod")]
+        [XmlElement(ElementName = "EncryptionMethod", Namespace = NamespaceConstant.Xenc)]
         public EncryptionMethod EncryptionMethod { get; set; }
 
-        [XmlElement("CipherData")]
+        [XmlElement(ElementName = "CipherData", Namespace = NamespaceConstant.Xenc)]
         public CipherData CipherData { get; set; }
 
-        [XmlElement("EncryptionProperties")]
+        [XmlElement(ElementName = "EncryptionProperties", Namespace = NamespaceConstant.Xenc)]
         public EncryptionProperties EncryptionProperties { get; set; }
     }
 }

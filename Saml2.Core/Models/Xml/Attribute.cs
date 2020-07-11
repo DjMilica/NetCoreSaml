@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Saml2.Core.Constants;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
@@ -14,7 +15,7 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "string", AttributeName = "FriendlyName")]
         public string FriendlyName { get; set; }
 
-        [XmlElement("AttributeValue")]
+        [XmlElement(ElementName = "AttributeValue", Namespace = NamespaceConstant.Saml)]
         public List<AttributeValue> AttributeValues { get; set; }
     }
 }

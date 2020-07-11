@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Saml2.Core.Constants;
+using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
@@ -13,13 +14,13 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "anyURI", AttributeName = "Type")]
         public string Type { get; set; }
 
-        [XmlElement("Transforms")]
+        [XmlElement(ElementName = "Transforms", Namespace = NamespaceConstant.Dsig)]
         public Transforms Transforms { get; set; }
 
-        [XmlElement("DigestMethod")]
+        [XmlElement(ElementName = "DigestMethod", Namespace = NamespaceConstant.Dsig)]
         public DigestMethod DigestMethod { get; set; }
 
-        [XmlElement("DigestValue")]
+        [XmlElement(ElementName = "DigestValue", Namespace = NamespaceConstant.Dsig)]
         public DigestValue DigestValue { get; set; }
     }
 }

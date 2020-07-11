@@ -1,10 +1,11 @@
-﻿using System.Xml.Serialization;
+﻿using Saml2.Core.Constants;
+using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
     public class CipherReference
     {
-        [XmlElement("Transforms")]
+        [XmlElement(ElementName = "Transforms", Namespace = NamespaceConstant.Xenc)]
         public Transforms Transforms { get; set; }
     }
 }
