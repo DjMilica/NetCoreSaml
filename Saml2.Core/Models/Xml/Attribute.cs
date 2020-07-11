@@ -15,7 +15,7 @@ namespace Saml2.Core.Models.Xml
         [XmlAttribute(DataType = "string", AttributeName = "FriendlyName")]
         public string FriendlyName { get; set; }
 
-        [XmlElement(ElementName = "AttributeValue", Namespace = NamespaceConstant.Saml)]
-        public List<AttributeValue> AttributeValues { get; set; }
+        [XmlElement(ElementName = "AttributeValue", Namespace = NamespaceConstant.Saml, IsNullable = true)]
+        public string[] AttributeValues { get; set; }
     }
 }
