@@ -27,21 +27,17 @@ namespace Saml2.Core.Services
             serializer.UnknownElement += new XmlElementEventHandler(this.UnknownElementHandler);
             serializer.UnknownAttribute += new XmlAttributeEventHandler(this.UnknownAttributeHandler);
 
-            using (TextReader reader = new StringReader(data))
-            {
-                return (T)serializer.Deserialize(reader);
-            }
+            using TextReader reader = new StringReader(data);
+            return (T)serializer.Deserialize(reader);
         }
 
         public string Serialize<T>(T data) where T : class
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
 
-            using (StringWriter writer = new StringWriter())
-            {
-                serializer.Serialize(writer, data);
-                return writer.ToString();
-            }
+            using StringWriter writer = new StringWriter();
+            serializer.Serialize(writer, data);
+            return writer.ToString();
         }
 
         private void UnknownElementHandler(object sender, XmlElementEventArgs e)
