@@ -6,16 +6,16 @@ namespace Saml2.Core.Models.Xml
 {
     public class Assertion: BaseRootElement
     {
-        [XmlElement(ElementName = "Subject", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.Subject, Namespace = NamespaceConstant.Saml)]
         public Subject Subject { get; set; }
 
-        [XmlElement(ElementName = "Conditions", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.Conditions, Namespace = NamespaceConstant.Saml)]
         public Conditions Conditions { get; set; }
 
-        [XmlElement(ElementName = "AuthnStatement", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.AuthnStatement, Namespace = NamespaceConstant.Saml)]
         public List<AuthnStatement> AuthnStatements { get; set; }
 
-        [XmlElement(ElementName = "AttributeStatement", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.AttributeStatement, Namespace = NamespaceConstant.Saml)]
         public List<AttributeStatement> AttributeStatements { get; set; }
     }
 }

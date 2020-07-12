@@ -5,10 +5,10 @@ namespace Saml2.Core.Models.Xml
 {
     public class CipherData
     {
-        [XmlElement(ElementName = "CipherValue", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.CipherValue, Namespace = NamespaceConstant.Xenc)]
         public CipherValue CipherValue { get; set; }
 
-        [XmlElement(ElementName = "CipherReference", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.CipherReference, Namespace = NamespaceConstant.Xenc)]
         public CipherReference CipherReference { get; set; }
     }
 }

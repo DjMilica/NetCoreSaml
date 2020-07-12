@@ -1,21 +1,20 @@
 ﻿using Saml2.Core.Constants;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
     public class Attribute
     {
-        [XmlAttribute(DataType = "string", AttributeName = "Name")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.Name)]
         public string Name { get; set; }
 
-        [XmlAttribute(DataType = "anyURI", AttributeName = "NameFormat")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.NameFormat)]
         public string NameFormat { get; set; }
 
-        [XmlAttribute(DataType = "string", AttributeName = "FriendlyName")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.FriendlyName)]
         public string FriendlyName { get; set; }
 
-        [XmlElement(ElementName = "AttributeValue", Namespace = NamespaceConstant.Saml, IsNullable = true)]
+        [XmlElement(ElementName = SamlElementSelector.AttributeValue, Namespace = NamespaceConstant.Saml, IsNullable = true)]
         public string[] AttributeValues { get; set; }
     }
 }

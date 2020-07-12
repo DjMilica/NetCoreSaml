@@ -6,7 +6,7 @@ namespace Saml2.Core.Models.Xml
 {
     public class Transforms
     {
-        [XmlElement(ElementName = "Transform", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.Transform, Namespace = NamespaceConstant.Dsig)]
         public List<Transform> TransformList { get; set; }
     }
 }

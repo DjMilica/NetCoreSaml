@@ -6,19 +6,19 @@ namespace Saml2.Core.Models.Xml
 {
     public abstract class BaseRootElement
     {
-        [XmlAttribute(DataType = "ID", AttributeName = "ID")]
+        [XmlAttribute(DataType = "ID", AttributeName = SamlAttributeSelector.IdUpperCase)]
         public string Id { get; set; }
 
-        [XmlAttribute(DataType = "string", AttributeName = "Version")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.Version)]
         public string Version { get; set; }
 
-        [XmlAttribute(DataType = "dateTime", AttributeName = "IssueInstant")]
+        [XmlAttribute(DataType = "dateTime", AttributeName = SamlAttributeSelector.IssueInstant)]
         public DateTime IssueInstant { get; set; }
 
-        [XmlElement(ElementName = "Issuer", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.Issuer, Namespace = NamespaceConstant.Saml)]
         public Issuer Issuer { get; set; }
 
-        [XmlElement(ElementName = "Signature", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.Signature, Namespace = NamespaceConstant.Dsig)]
         public Signature Signature { get; set; }
     }
 }

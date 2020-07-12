@@ -5,10 +5,10 @@ namespace Saml2.Core.Models.Xml
 {
     public class StatusCode
     {
-        [XmlAttribute(DataType = "anyURI", AttributeName = "Value")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.Value)]
         public string Value { get; set; }
 
-        [XmlElement(ElementName = "StatusCode", Namespace = NamespaceConstant.Samlp)]
+        [XmlElement(ElementName = SamlElementSelector.StatusCode, Namespace = NamespaceConstant.Samlp)]
         public StatusCode SubCode { get; set; }
     }
 }

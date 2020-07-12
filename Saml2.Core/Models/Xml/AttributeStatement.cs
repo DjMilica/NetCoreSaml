@@ -6,10 +6,10 @@ namespace Saml2.Core.Models.Xml
 {
     public class AttributeStatement
     {
-        [XmlElement(ElementName = "Attribute", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.Attribute, Namespace = NamespaceConstant.Saml)]
         public List<Attribute> Attributes { get; set; }
 
-        [XmlElement(ElementName = "EncryptedAttribute", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.EncryptedAttribute, Namespace = NamespaceConstant.Saml)]
         public List<EncryptedAttribute> EncryptedAttributes { get; set; }
     }
 }

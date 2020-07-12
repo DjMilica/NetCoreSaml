@@ -6,10 +6,10 @@ namespace Saml2.Core.Models.Xml
 {
     public class EncryptionProperties
     {
-        [XmlAttribute(DataType = "ID", AttributeName = "Id")]
+        [XmlAttribute(DataType = "ID", AttributeName = SamlAttributeSelector.IdLowerCase)]
         public string Id { get; set; }
 
-        [XmlElement(ElementName = "EncryptionProperty", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.EncryptionProperty, Namespace = NamespaceConstant.Xenc)]
         public List<EncryptionProperty> EncryptionPropertyList { get; set; }
     }
 }

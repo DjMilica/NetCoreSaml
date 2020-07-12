@@ -5,16 +5,16 @@ namespace Saml2.Core.Models.Xml
 {
     public class Signature
     {
-        [XmlAttribute(DataType = "ID", AttributeName = "ID")]
+        [XmlAttribute(DataType = "ID", AttributeName = SamlAttributeSelector.IdUpperCase)]
         public string Id { get; set; }
 
-        [XmlElement(ElementName = "SignedInfo", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.SignedInfo, Namespace = NamespaceConstant.Dsig)]
         public SignedInfo SignedInfo { get; set; }
 
-        [XmlElement(ElementName = "SignatureValue", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.SignatureValue, Namespace = NamespaceConstant.Dsig)]
         public SignatureValue SignatureValue { get; set; }
 
-        [XmlElement(ElementName = "KeyInfo", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.KeyInfo, Namespace = NamespaceConstant.Dsig)]
         public KeyInfo KeyInfo { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace Saml2.Core.Models.Xml
 {
     public class CipherReference
     {
-        [XmlElement(ElementName = "Transforms", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.Transforms, Namespace = NamespaceConstant.Xenc)]
         public Transforms Transforms { get; set; }
     }
 }

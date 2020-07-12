@@ -6,10 +6,10 @@ namespace Saml2.Core.Models.Xml
 {
     public class ReferenceList
     {
-        [XmlElement(ElementName = "DataReference", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.DataReference, Namespace = NamespaceConstant.Xenc)]
         public List<DataReference> DataReferences { get; set; }
 
-        [XmlElement(ElementName = "KeyReference", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.KeyReference, Namespace = NamespaceConstant.Xenc)]
         public List<KeyReference> KeyReferences { get; set; }
     }
 }

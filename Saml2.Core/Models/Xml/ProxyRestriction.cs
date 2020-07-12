@@ -6,10 +6,10 @@ namespace Saml2.Core.Models.Xml
 {
     public class ProxyRestriction
     {
-        [XmlAttribute(DataType = "nonNegativeInteger", AttributeName = "Count")]
+        [XmlAttribute(DataType = "nonNegativeInteger", AttributeName = SamlAttributeSelector.Count)]
         public string Count { get; set; }
 
-        [XmlElement(ElementName = "Audience", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.Audience, Namespace = NamespaceConstant.Saml)]
         public List<Audience> Audiences { get; set; }
     }
 }

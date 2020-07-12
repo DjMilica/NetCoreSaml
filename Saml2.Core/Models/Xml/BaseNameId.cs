@@ -4,16 +4,16 @@ namespace Saml2.Core.Models.Xml
 {
     public abstract class BaseNameId: BaseStringElement
     {
-        [XmlAttribute(DataType = "string", AttributeName = "NameQualifier")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.NameQualifier)]
         public string NameQualifier { get; set; }
 
-        [XmlAttribute(DataType = "string", AttributeName = "SPNameQualifier")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.SpNameQualifier)]
         public string SpNameQualifier { get; set; }
 
-        [XmlAttribute(DataType = "anyURI", AttributeName = "Format")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.Format)]
         public string Format { get; set; }
 
-        [XmlAttribute(DataType = "string", AttributeName = "SPProvidedID")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.SpProvidedId)]
         public string SpProvidedId { get; set; }
     }
 }

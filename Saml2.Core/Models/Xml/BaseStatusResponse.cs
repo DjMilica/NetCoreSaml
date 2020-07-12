@@ -5,10 +5,10 @@ namespace Saml2.Core.Models.Xml
 {
     public abstract class BaseStatusResponse: BaseCorrespondance
     {
-        [XmlAttribute(DataType = "NCName", AttributeName = "InResponseTo")]
+        [XmlAttribute(DataType = "NCName", AttributeName = SamlAttributeSelector.InResponseTo)]
         public string InResponseTo { get; set; }
 
-        [XmlElement(ElementName = "Status", Namespace = NamespaceConstant.Samlp)]
+        [XmlElement(ElementName = SamlElementSelector.Status, Namespace = NamespaceConstant.Samlp)]
         public Status Status { get; set; }
     }
 }

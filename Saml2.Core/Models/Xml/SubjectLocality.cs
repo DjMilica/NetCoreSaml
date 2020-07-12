@@ -4,10 +4,10 @@ namespace Saml2.Core.Models.Xml
 {
     public class SubjectLocality
     {
-        [XmlAttribute(DataType = "string", AttributeName = "Address")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.Address)]
         public string Address { get; set; }
 
-        [XmlAttribute(DataType = "string", AttributeName = "DNSName")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.DnsName)]
         public string DnsName { get; set; }
     }
 }

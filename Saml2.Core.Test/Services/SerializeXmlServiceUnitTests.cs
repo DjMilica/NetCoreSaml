@@ -42,7 +42,7 @@ namespace Saml2.Core.Test.Services
 
             #region Act
 
-            Response result = this.service.Deserialize<Response>(responseWithAttributes);
+            AuthnResponse result = this.service.Deserialize<AuthnResponse>(responseWithAttributes);
 
             #endregion
 
@@ -96,7 +96,7 @@ namespace Saml2.Core.Test.Services
 
             #region Act
 
-            Response result = this.service.Deserialize<Response>(responseWithSignature);
+            AuthnResponse result = this.service.Deserialize<AuthnResponse>(responseWithSignature);
 
             #endregion
 
@@ -134,7 +134,7 @@ namespace Saml2.Core.Test.Services
 
             #region Act
 
-            Response result = this.service.Deserialize<Response>(response);
+            AuthnResponse result = this.service.Deserialize<AuthnResponse>(response);
 
             #endregion
 
@@ -191,7 +191,7 @@ namespace Saml2.Core.Test.Services
 
             #region Act
 
-            Response result = this.service.Deserialize<Response>(response);
+            AuthnResponse result = this.service.Deserialize<AuthnResponse>(response);
 
             #endregion
 
@@ -273,7 +273,7 @@ namespace Saml2.Core.Test.Services
 
             #region Act
 
-            Response result = this.service.Deserialize<Response>(response);
+            AuthnResponse result = this.service.Deserialize<AuthnResponse>(response);
 
             #endregion
 

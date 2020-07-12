@@ -6,7 +6,7 @@ namespace Saml2.Core.Models.Xml
 {
     public class AudienceRestriction
     {
-        [XmlElement(ElementName = "Audience", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.Audience, Namespace = NamespaceConstant.Saml)]
         public List<Audience> Audiences { get; set; }
     }
 }

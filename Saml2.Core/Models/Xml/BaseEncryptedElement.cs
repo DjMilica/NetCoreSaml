@@ -6,10 +6,10 @@ namespace Saml2.Core.Models.Xml
 {
     public abstract class BaseEncryptedElement
     {
-        [XmlElement(ElementName = "EncryptedData", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.EncryptedData, Namespace = NamespaceConstant.Xenc)]
         public EncryptedData EncryptedData { get; set; }
 
-        [XmlElement(ElementName = "EncryptedKey", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.EncryptedKey, Namespace = NamespaceConstant.Xenc)]
         public List<EncryptedKey> EncryptedKey { get; set; }
     }
 }

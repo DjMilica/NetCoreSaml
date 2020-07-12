@@ -5,7 +5,7 @@ namespace Saml2.Core.Models.Xml
 {
     public class EncryptedData: BaseEncryptedType
     {
-        [XmlElement(ElementName = "KeyInfo", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.KeyInfo, Namespace = NamespaceConstant.Dsig)]
         public KeyInfo KeyInfo { get; set; }
     }
 }

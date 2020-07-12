@@ -5,16 +5,16 @@ namespace Saml2.Core.Models.Xml
 {
     public class SubjectConfirmation
     {
-        [XmlAttribute(DataType = "anyURI", AttributeName = "Method")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.Method)]
         public string Method { get; set; }
 
-        [XmlElement(ElementName = "NameID", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.NameId, Namespace = NamespaceConstant.Saml)]
         public NameId NameId { get; set; }
 
-        [XmlElement(ElementName = "EncryptedID", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.EncryptedId, Namespace = NamespaceConstant.Saml)]
         public EncryptedId EncryptedId { get; set; }
 
-        [XmlElement(ElementName = "SubjectConfirmationData", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.SubjectConfirmationData, Namespace = NamespaceConstant.Saml)]
         public SubjectConfirmationData SubjectConfirmationData { get; set; }
     }
 }

@@ -5,13 +5,13 @@ namespace Saml2.Core.Models.Xml
 {
     public class EncryptionMethod
     {
-        [XmlAttribute(DataType = "anyURI", AttributeName = "Algorithm")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.Algorithm)]
         public string Algorithm { get; set; }
 
-        [XmlElement(ElementName = "KeySize", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.KeySize, Namespace = NamespaceConstant.Xenc)]
         public KeySize KeySize { get; set; }
 
-        [XmlElement(ElementName = "OAEPparams", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.OaepParams, Namespace = NamespaceConstant.Xenc)]
         public OaepParams OaepParams { get; set; }
 
         [XmlAnyElement]

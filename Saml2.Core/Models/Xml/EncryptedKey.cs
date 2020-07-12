@@ -5,16 +5,16 @@ namespace Saml2.Core.Models.Xml
 {
     public class EncryptedKey : BaseEncryptedType
     {
-        [XmlAttribute(DataType = "string", AttributeName = "Recipient")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.Recipient)]
         public string Recipient { get; set; }
 
-        [XmlElement(ElementName = "KeyInfo", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.KeyInfo, Namespace = NamespaceConstant.Dsig)]
         public KeyInfo KeyInfo { get; set; }
 
-        [XmlElement(ElementName = "ReferenceList", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.ReferenceList, Namespace = NamespaceConstant.Xenc)]
         public ReferenceList ReferenceList { get; set; }
 
-        [XmlElement(ElementName = "CarriedKeyName", Namespace = NamespaceConstant.Xenc)]
+        [XmlElement(ElementName = SamlElementSelector.CarriedKeyName, Namespace = NamespaceConstant.Xenc)]
         public CarriedKeyName CarriedKeyName { get; set; }
     }
 }

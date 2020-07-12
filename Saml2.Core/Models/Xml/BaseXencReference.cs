@@ -4,7 +4,7 @@ namespace Saml2.Core.Models.Xml
 {
     public abstract class BaseXencReference
     {
-        [XmlAttribute(DataType = "anyURI", AttributeName = "URI")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.Uri)]
         public string Uri { get; set; }
 
         [XmlAnyElement]

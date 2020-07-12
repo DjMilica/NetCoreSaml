@@ -6,19 +6,19 @@ namespace Saml2.Core.Models.Xml
 {
     public class AuthnStatement
     {
-        [XmlAttribute(DataType = "dateTime", AttributeName = "AuthnInstant")]
+        [XmlAttribute(DataType = "dateTime", AttributeName = SamlAttributeSelector.AuthnInstant)]
         public DateTime AuthnInstant { get; set; }
 
-        [XmlAttribute(DataType = "string", AttributeName = "SessionIndex")]
+        [XmlAttribute(DataType = "string", AttributeName = SamlAttributeSelector.SessionIndex)]
         public string SessionIndex { get; set; }
 
-        [XmlAttribute(DataType = "dateTime", AttributeName = "SessionNotOnOrAfter")]
+        [XmlAttribute(DataType = "dateTime", AttributeName = SamlAttributeSelector.SessionNotOnOrAfter)]
         public DateTime  SessionNotOnOrAfter{ get; set; }
 
-        [XmlElement(ElementName = "SubjectLocality", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.SubjectLocality, Namespace = NamespaceConstant.Saml)]
         public SubjectLocality SubjectLocality { get; set; }
 
-        [XmlElement(ElementName = "AuthnContext", Namespace = NamespaceConstant.Saml)]
+        [XmlElement(ElementName = SamlElementSelector.AuthnContext, Namespace = NamespaceConstant.Saml)]
         public AuthnContext AuthnContext { get; set; }
     }
 }

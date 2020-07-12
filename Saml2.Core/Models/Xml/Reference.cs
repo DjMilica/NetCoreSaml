@@ -5,22 +5,22 @@ namespace Saml2.Core.Models.Xml
 {
     public class Reference
     {
-        [XmlAttribute(DataType = "ID", AttributeName = "Id")]
+        [XmlAttribute(DataType = "ID", AttributeName = SamlAttributeSelector.IdLowerCase)]
         public string Id { get; set; }
 
-        [XmlAttribute(DataType = "anyURI", AttributeName = "URI")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.Uri)]
         public string Uri { get; set; }
 
-        [XmlAttribute(DataType = "anyURI", AttributeName = "Type")]
+        [XmlAttribute(DataType = "anyURI", AttributeName = SamlAttributeSelector.Type)]
         public string Type { get; set; }
 
-        [XmlElement(ElementName = "Transforms", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.Transforms, Namespace = NamespaceConstant.Dsig)]
         public Transforms Transforms { get; set; }
 
-        [XmlElement(ElementName = "DigestMethod", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.DigestMethod, Namespace = NamespaceConstant.Dsig)]
         public DigestMethod DigestMethod { get; set; }
 
-        [XmlElement(ElementName = "DigestValue", Namespace = NamespaceConstant.Dsig)]
+        [XmlElement(ElementName = SamlElementSelector.DigestValue, Namespace = NamespaceConstant.Dsig)]
         public DigestValue DigestValue { get; set; }
     }
 }
