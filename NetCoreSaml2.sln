@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saml2.Core", "Saml2.Core\Saml2.Core.csproj", "{A678CA8F-BC30-4285-8562-B039948480C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saml2.Core.Test", "Saml2.Core.Test\Saml2.Core.Test.csproj", "{7716922A-C6F7-491D-80BB-C84BD61D0A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saml2.Core.Test", "Saml2.Core.Test\Saml2.Core.Test.csproj", "{7716922A-C6F7-491D-80BB-C84BD61D0A6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleWebApp", "ExampleWebApp\ExampleWebApp.csproj", "{7E6FF45F-3658-4E0E-9C84-331D14BF4560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7716922A-C6F7-491D-80BB-C84BD61D0A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7716922A-C6F7-491D-80BB-C84BD61D0A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7716922A-C6F7-491D-80BB-C84BD61D0A6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E6FF45F-3658-4E0E-9C84-331D14BF4560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E6FF45F-3658-4E0E-9C84-331D14BF4560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E6FF45F-3658-4E0E-9C84-331D14BF4560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E6FF45F-3658-4E0E-9C84-331D14BF4560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
