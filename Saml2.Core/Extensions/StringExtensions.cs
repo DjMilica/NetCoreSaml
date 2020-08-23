@@ -1,4 +1,4 @@
-﻿namespace Saml2.Core.Extenstions
+﻿namespace Saml2.Core.Extensions
 {
     public static class StringExtensions
     {

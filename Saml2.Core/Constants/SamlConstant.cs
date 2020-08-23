@@ -2,6 +2,6 @@
 {
     public class SamlConstant
     {
-        public static string Version = "2.0";
+        public const string Version = "2.0";
     }
 }

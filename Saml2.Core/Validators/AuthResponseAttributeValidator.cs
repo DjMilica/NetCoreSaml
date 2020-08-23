@@ -1,6 +1,6 @@
 ﻿using Saml2.Core.Constants;
 using Saml2.Core.Errors;
-using Saml2.Core.Extenstions;
+using Saml2.Core.Extensions;
 using Saml2.Core.Models.Xml;
 using System;
 
