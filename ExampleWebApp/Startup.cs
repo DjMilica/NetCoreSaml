@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Saml2.Core.Configuration;
+using Saml2.Core.Extensions;
 
 namespace ExampleWebApp
 {
@@ -26,14 +28,27 @@ namespace ExampleWebApp
             services.AddTransient<IRoleStore<ApplicationRole>, SimpleRoleStore>();
             services.AddIdentity<ApplicationUser, ApplicationRole>();
 
+            services.Configure<SamlConfiguration>(Configuration.GetSection("Saml"));
+
+            services.AddSamlServices();
+
             services
-                .AddAuthentication(options => {
+                .AddAuthentication(options =>
+                {
                     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
-                .AddCookie(options => {
+                .AddCookie(options =>
+                {
                     options.LoginPath = "/auth/login";
+                })
+                .AddSaml(options =>
+                {
+                    options.IdentityProviderConfiguration = new IdentityProviderConfiguration()
+                    {
+                        EntityId = "someIdpEntityId"
+                    };
                 });
 
             services.AddControllersWithViews();
