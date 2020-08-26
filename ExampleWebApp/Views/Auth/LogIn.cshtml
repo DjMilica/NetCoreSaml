@@ -31,7 +31,7 @@
                                 <p>
                                     @foreach (var provider in loginProviders)
                                     {
-                                        <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
+                                        <button type="submit" class="btn btn-default" asp-route-provider="@provider.Name" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
                                     }
                                 </p>
                             </div>

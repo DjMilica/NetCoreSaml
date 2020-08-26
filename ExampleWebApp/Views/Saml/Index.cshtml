@@ -1,0 +1,44 @@
+﻿@page
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.Extensions.Options
+@using Saml2.Core.Configuration 
+@inject IAuthenticationSchemeProvider SchemeProvider
+@inject IOptionsMonitor<SamlAuthenticationOptions> Options
+
+
+<div class="row">
+    <h2>Current Authentication Schemes</h2>
+    <ul>
+        @{
+            var schemes = await SchemeProvider.GetAllSchemesAsync();
+            foreach (var scheme in schemes)
+            {
+                <li><b>Scheme:</b> @scheme.Name -- <b>Handler:</b> @scheme.HandlerType.Name <b>DisplayMessage:</b> @Options.Get(scheme.Name).IdentityProviderConfiguration <a asp-area="" asp-controller="Saml" asp-action="Remove" asp-route-scheme="@scheme.Name">Remove</a></li>
+            }
+        }
+    </ul>
+</div>
+<div class="row">
+    <h2>Add or update a scheme:</h2>
+    <form asp-controller="Saml" asp-action="AddOrUpdate" method="post" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Scheme</label>
+            <div class="col-md-10">
+                <input type="text" name="scheme" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">EntityId</label>
+            <div class="col-md-10">
+                <input type="text" name="entityId" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default">Add/Update</button>
+            </div>
+        </div>
+    </form>
+</div>
