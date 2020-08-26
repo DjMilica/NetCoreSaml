@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ExampleWebApp.Controllers
 {
-    [Route("auth")]
+    [Route("[controller]/[action]")]
     public class AuthController : Controller
     {
         private readonly ILogger logger;
@@ -31,10 +31,12 @@ namespace ExampleWebApp.Controllers
             this.userManager = userManager;
         }
 
-        [Route("login")]
+        //[Route("login")]
+        [HttpGet]
         public IActionResult LogIn() => View();
 
-        [Route("login/{provider}")]
+        //[Route("login/{provider}")]
+        [HttpPost]
         public IActionResult LogIn(string provider, string returnUrl = null)
         {
             // Request a redirect to the external login provider.
@@ -93,7 +95,7 @@ namespace ExampleWebApp.Controllers
             return RedirectToAction(nameof(LogIn));
         }
 
-        [Route("logout")]
+        //[Route("logout")]
         public async Task<IActionResult> LogOut(string returnUrl)
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
