@@ -13,5 +13,16 @@ namespace Saml2.Core.Configuration
         public int? MillisecondsSkew { get; set; }
 
         public bool? UseNameIdAsSpUserId { get; set; }
+
+        public string HttpPostSingleSignOnService { get; set; }
+
+        public string HttpRedirectSingleSignOnService { get; set; }
+
+        public string HttpPostSingleLogoutService { get; set; }
+
+        public string HttpRedirectSingleLogoutService { get; set; }
+
+        public bool WantAuthnRequestsSigned { get; set; }
+
     }
 }

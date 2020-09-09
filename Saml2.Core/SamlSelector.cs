@@ -62,6 +62,9 @@
         public const string X509IssuerName = "X509IssuerName";
         public const string X509IssuerSerial = "X509IssuerSerial";
         public const string X509SerialNumber = "X509SerialNumber";
+
+        public const string AuthnRequest = "AuthnRequest";
+        public const string NameIdPolicy = "NameIDPolicy";
     }
 
     public class SamlAttributeSelector
@@ -96,5 +99,10 @@
         public const string Method = "Method";
         public const string Address = "Address";
         public const string DnsName = "DNSName";
+        public const string ForceAuthn = "ForceAuthn";
+        public const string IsPassive = "IsPassive";
+        public const string ProtocolBinding = "ProtocolBinding";
+        public const string AssertionConsumerServiceUrl = "AssertionConsumerServiceURL";
+        public const string AllowCreate = "AllowCreate";
     }
 }

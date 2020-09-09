@@ -1,9 +1,10 @@
-﻿using Saml2.Core.Configuration;
+﻿using Microsoft.Extensions.Options;
+using Saml2.Core.Configuration;
 using Saml2.Core.Errors;
 
 namespace Saml2.Core.Providers
 {
-    public interface IServiceProviderConfigurationProvider
+    public interface ISpConfigurationProvider
     {
         string GetEntityId();
         string GetAuthenticationResponseLocation();
@@ -13,13 +14,15 @@ namespace Saml2.Core.Providers
 
     }
 
-    public class ServiceProviderConfigurationProvider: IServiceProviderConfigurationProvider
+    public class SpConfigurationProvider: ISpConfigurationProvider
     {
         private readonly ServiceProviderConfiguration configuration;
 
-        public ServiceProviderConfigurationProvider(SamlConfiguration configuration)
+        public SpConfigurationProvider(
+            IOptions<SamlConfiguration> options
+        )
         {
-            this.configuration = configuration.ServiceProviderConfiguration;
+            this.configuration = options.Value.ServiceProviderConfiguration;
         }
 
         public string GetEntityId()

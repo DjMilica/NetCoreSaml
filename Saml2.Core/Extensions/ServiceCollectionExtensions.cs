@@ -13,13 +13,13 @@ namespace Saml2.Core.Extensions
         {
             services.AddOptions();
 
-            services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<SamlConfiguration>>().Value);
+            services.AddScoped(resolver => resolver.GetRequiredService<IOptions<SamlConfiguration>>().Value);
 
-            services.AddSingleton<IServiceProviderConfigurationProvider, ServiceProviderConfigurationProvider>();
+            services.AddTransient<ISpConfigurationProvider, SpConfigurationProvider>();
 
             services.AddTransient<ISerializeXmlService, SerializeXmlService>();
 
-            services.AddTransient<IIdentityProviderConfigurationProvider, IdentityProviderConfigurationProvider>();
+            services.AddScoped<IIdpConfigurationProviderFactory, IdpConfigurationProviderFactory>();
 
             services.AddTransient<IAuthnRequestFactory, AuthnRequestFactory>();
 

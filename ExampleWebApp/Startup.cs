@@ -28,6 +28,8 @@ namespace ExampleWebApp
             services.AddTransient<IRoleStore<ApplicationRole>, SimpleRoleStore>();
             services.AddIdentity<ApplicationUser, ApplicationRole>();
 
+            services.AddOptions();
+
             services.Configure<SamlConfiguration>(Configuration.GetSection("Saml"));
 
             services.AddSamlServices();
@@ -43,13 +45,23 @@ namespace ExampleWebApp
                 {
                     options.LoginPath = "/auth/login";
                 })
-                .AddSaml(options =>
+                .AddSaml("saml1", options =>
                 {
                     options.IdentityProviderConfiguration = new IdentityProviderConfiguration()
                     {
-                        EntityId = "someIdpEntityId"
+                        EntityId = "someIdpEntityId",
+                        HttpRedirectSingleSignOnService = "https://someUrlToIdpAuthEndpoint",
+                        AuthnRequestBinding = Saml2.Core.Enums.BindingType.HttpRedirect,
+                    };
+                })
+                .AddSaml("saml2", options =>
+                {
+                    options.IdentityProviderConfiguration = new IdentityProviderConfiguration()
+                    {
+                        EntityId = "someOtherEntityId"
                     };
                 });
+
 
             services.AddControllersWithViews();
         }

@@ -1,32 +1,40 @@
 ﻿
 using Microsoft.Extensions.Logging;
-using Saml2.Core.Providers;
+using Saml2.Core.Factories;
+using Saml2.Core.Models.Xml;
 
 namespace Saml2.Core.Services
 {
     public interface IAuthnRequestService
     {
         string CreateRedirectUrl();
+        string CreatePostData();
     }
 
     public class AuthnRequestService: IAuthnRequestService
     {
         private readonly ILogger logger;
-        private readonly IIdentityProviderConfigurationProvider identityProviderConfigurationProvider;
+        private readonly IAuthnRequestFactory authnRequestFactory;
 
         public AuthnRequestService(
             ILogger<AuthnRequestService> logger,
-            IIdentityProviderConfigurationProvider identityProviderConfigurationProvider
+            IAuthnRequestFactory authnRequestFactory
         )
         {
             this.logger = logger;
-            this.identityProviderConfigurationProvider = identityProviderConfigurationProvider;
+            this.authnRequestFactory = authnRequestFactory;
         }
 
         public string CreateRedirectUrl()
         {
-            string entityId = this.identityProviderConfigurationProvider.GetEntityId();
+            AuthnRequest request = this.authnRequestFactory.Create();
+
             return "someUrl";
+        }
+
+        public string CreatePostData()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
