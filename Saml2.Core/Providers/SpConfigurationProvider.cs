@@ -1,6 +1,10 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using Saml2.Core.Configuration;
+using Saml2.Core.Constants;
 using Saml2.Core.Errors;
+using Saml2.Core.Extensions;
+using Saml2.Core.Helpers;
 
 namespace Saml2.Core.Providers
 {
@@ -11,18 +15,24 @@ namespace Saml2.Core.Providers
         string GetLogoutLocation();
         bool GetWantAssertionsSigned();
         bool GetAuthenticationRequestSigned();
+        SignatureAlgorithm GetAuthenticationRequestSigningAlgorithm();
+        string GetPrivateKey();
+        string GetPublicKey();
 
     }
 
     public class SpConfigurationProvider: ISpConfigurationProvider
     {
         private readonly ServiceProviderConfiguration configuration;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         public SpConfigurationProvider(
-            IOptions<SamlConfiguration> options
+            IOptions<SamlConfiguration> options,
+            IHttpContextAccessor httpContextAccessor
         )
         {
             this.configuration = options.Value.ServiceProviderConfiguration;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public string GetEntityId()
@@ -36,7 +46,23 @@ namespace Saml2.Core.Providers
         {
             this.Validate();
 
-            return this.configuration.AuthnResponseEndpoint;
+            string authnResponseEndpoint = this.configuration.AuthnResponseEndpoint;
+
+            if (!authnResponseEndpoint.IsNotNullOrWhitspace())
+            {
+                throw new SamlInternalException("Authentication response endpoint should be defined.");
+            }
+
+            string transformedAuthnResponseEndpoint = authnResponseEndpoint.Trim();
+
+            if (!transformedAuthnResponseEndpoint.StartsWith("/"))
+            {
+                transformedAuthnResponseEndpoint = $"/{transformedAuthnResponseEndpoint}";
+            }
+
+            HttpRequest request = this.httpContextAccessor.HttpContext.Request;
+
+            return $"{request.Scheme}://{request.Host}{transformedAuthnResponseEndpoint}";
         }
 
         public string GetLogoutLocation()
@@ -58,6 +84,54 @@ namespace Saml2.Core.Providers
             this.Validate();
 
             return this.configuration.AuthnRequestsSigned;
+        }
+
+        public SignatureAlgorithm GetAuthenticationRequestSigningAlgorithm()
+        {
+            this.Validate();
+
+            string name =  this.configuration.AuthnRequestSigningAlgorithm;
+
+            if (name == SignatureAlgorithmConstants.RsaSha256.Name)
+            {
+                return SignatureAlgorithmConstants.RsaSha256;
+            } 
+            else if (name == SignatureAlgorithmConstants.RsaSha1.Name)
+            {
+                return SignatureAlgorithmConstants.RsaSha1;
+            } 
+            else
+            {
+                throw new SamlInternalException($"Authn request signature algorithm could be {SignatureAlgorithmConstants.RsaSha256.Name} or {SignatureAlgorithmConstants.RsaSha1.Name}, but it is defined as {name}");
+            }
+        }
+
+        public string GetPrivateKey()
+        {
+            this.Validate();
+
+            string privateKeyFilePath = this.configuration.PrivateKeyFilePath;
+
+            if (!privateKeyFilePath.IsNotNullOrWhitspace())
+            {
+                throw new SamlInternalException("Service provider configuration private key file path is not defined!");
+            }
+
+            return FileHelper.Read(privateKeyFilePath);
+        }
+
+        public string GetPublicKey()
+        {
+            this.Validate();
+
+            string publicKeyFilePath = this.configuration.PublicKeyFilePath;
+
+            if (publicKeyFilePath.IsNotNullOrWhitspace())
+            {
+                throw new SamlInternalException("Service provider configuration public key file path is not defined!");
+            }
+
+            return FileHelper.Read(publicKeyFilePath);
         }
 
         private void Validate()

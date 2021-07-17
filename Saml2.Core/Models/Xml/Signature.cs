@@ -16,5 +16,11 @@ namespace Saml2.Core.Models.Xml
 
         [XmlElement(ElementName = SamlElementSelector.KeyInfo, Namespace = NamespaceConstant.Dsig)]
         public KeyInfo KeyInfo { get; set; }
+
+        public string GetXml()
+        {
+            // TODO!!
+            return ""; 
+        }
     }
 }

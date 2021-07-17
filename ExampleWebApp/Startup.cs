@@ -45,12 +45,12 @@ namespace ExampleWebApp
                 {
                     options.LoginPath = "/auth/login";
                 })
-                .AddSaml("saml1", options =>
+                .AddSaml("okta", options =>
                 {
                     options.IdentityProviderConfiguration = new IdentityProviderConfiguration()
                     {
-                        EntityId = "someIdpEntityId",
-                        HttpRedirectSingleSignOnService = "https://someUrlToIdpAuthEndpoint",
+                        EntityId = "http://www.okta.com/exk19fnc2urbp2lBa5d7",
+                        HttpRedirectSingleSignOnService = "https://dev-7375101.okta.com/app/dev-7375101_milicatest_1/exk19fnc2urbp2lBa5d7/sso/saml",
                         AuthnRequestBinding = Saml2.Core.Enums.BindingType.HttpRedirect,
                     };
                 })
@@ -58,7 +58,7 @@ namespace ExampleWebApp
                 {
                     options.IdentityProviderConfiguration = new IdentityProviderConfiguration()
                     {
-                        EntityId = "someOtherEntityId"
+                        
                     };
                 });
 
