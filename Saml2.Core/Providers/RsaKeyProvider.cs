@@ -19,18 +19,18 @@ namespace Saml2.Core.Providers
             RSA rsa = RSA.Create();
 
             bool isPkcsprivateKey = key.Contains("BEGIN PRIVATE KEY");
+
+            string transformedKey = key.Replace("-----BEGIN PRIVATE KEY-----", string.Empty).Replace("-----END PRIVATE KEY-----", string.Empty);
+            transformedKey = transformedKey.Replace("-----BEGIN RSA PRIVATE KEY-----", string.Empty).Replace("-----END RSA PRIVATE KEY-----", string.Empty);
+            transformedKey = transformedKey.Replace(Environment.NewLine, string.Empty);
+            byte[] privateKeyBytes = Convert.FromBase64String(transformedKey);
+
             if (isPkcsprivateKey)
             {
-                var privateKey = key.Replace("-----BEGIN PRIVATE KEY-----", string.Empty).Replace("-----END PRIVATE KEY-----", string.Empty);
-                privateKey = privateKey.Replace(Environment.NewLine, string.Empty);
-                var privateKeyBytes = Convert.FromBase64String(privateKey);
                 rsa.ImportPkcs8PrivateKey(privateKeyBytes, out int _);
             }
             else
             {
-                var privateKey = key.Replace("-----BEGIN RSA PRIVATE KEY-----", string.Empty).Replace("-----END RSA PRIVATE KEY-----", string.Empty);
-                privateKey = privateKey.Replace(Environment.NewLine, string.Empty);
-                var privateKeyBytes = Convert.FromBase64String(privateKey);
                 rsa.ImportRSAPrivateKey(privateKeyBytes, out int _);
             }
 
