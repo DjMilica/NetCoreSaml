@@ -17,9 +17,11 @@ namespace Saml2.Core.Errors
 
     public class SamlValidationErrors
     {
+        public const string AuthnResponseShouldNotBeNull = "Authn Response should not be null";
+        public const string AuthnResponseBodyShouldNotBeNull = "Authn Response body should not be null";
         public const string IdAttributeShouldNotBeNullOrUndefined = "Id attribute of {0} element should not be null or empty.";
         public const string TimeAttributeShouldNotBeNull = "Time attribute {0} of {1} element should not be null.";
-        public const string IssueInstantShouldNotBeInFuture = "IssueInstant attribute of {1} element should not be in the future.";
+        public const string IssueInstantShouldNotBeInFuture = "IssueInstant attribute of {0} element should not be in the future.";
         public const string VersionMissmatch = "Received {0} version, but only supporting {1} version.";
     }
 }

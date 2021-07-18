@@ -5,9 +5,11 @@ using Saml2.Core.Builders;
 using Saml2.Core.Configuration;
 using Saml2.Core.Encoders;
 using Saml2.Core.Factories;
+using Saml2.Core.Handlers;
 using Saml2.Core.Helpers;
 using Saml2.Core.Providers;
 using Saml2.Core.Services;
+using Saml2.Core.Validators;
 using System.Linq;
 
 namespace Saml2.Core.Extensions
@@ -48,6 +50,14 @@ namespace Saml2.Core.Extensions
             services.AddTransient<ISamlSignatureHelper, SamlSignatureHelper>();
 
             services.AddTransient<IRsaKeyProvider, RsaKeyProvider>();
+
+            services.AddTransient<IAuthnResponseHandler, AuthnResponseHandler>();
+
+            services.AddScoped<AuthnResponseContext>();
+
+            services.AddTransient<AuthResponseAttributeValidator>();
+
+            services.AddTransient<IAuthnResponseValidatorListProvider, AuthnResponseValidatorListProvider>();
 
             return services;
         }

@@ -53,13 +53,6 @@ namespace ExampleWebApp
                         HttpRedirectSingleSignOnService = "https://dev-7375101.okta.com/app/dev-7375101_milicatest_1/exk19fnc2urbp2lBa5d7/sso/saml",
                         AuthnRequestBinding = Saml2.Core.Enums.BindingType.HttpRedirect,
                     };
-                })
-                .AddSaml("saml2", options =>
-                {
-                    options.IdentityProviderConfiguration = new IdentityProviderConfiguration()
-                    {
-                        
-                    };
                 });
 
 

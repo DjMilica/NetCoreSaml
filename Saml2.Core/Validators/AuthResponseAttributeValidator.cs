@@ -3,12 +3,22 @@ using Saml2.Core.Errors;
 using Saml2.Core.Extensions;
 using Saml2.Core.Models.Xml;
 using System;
+using System.Threading.Tasks;
 
 namespace Saml2.Core.Validators
 {
-    public class AuthResponseAttributeValidator : ISamlAuthnResponseElementValidator<AuthnResponse>
+    public class AuthResponseAttributeValidator : ISamlAuthnResponseValidator
     {
-        public void Validate(AuthnResponse data, AuthnResponseContext context)
+        private readonly AuthnResponseContext authnResponseContext;
+
+        public AuthResponseAttributeValidator(
+            AuthnResponseContext authnResponseContext
+        )
+        {
+            this.authnResponseContext = authnResponseContext;
+        }
+
+        public async Task Validate(AuthnResponse data)
         {
             SamlValidationGuard.NotTrue(
                 data.Id.IsValidSamlId(),
@@ -23,7 +33,7 @@ namespace Saml2.Core.Validators
                 SamlElementSelector.AuthnResponse
             );
 
-            if (data.IssueInstant.Millisecond > DateTime.UtcNow.Millisecond)
+            if (data.IssueInstant.Ticks > DateTime.UtcNow.Ticks)
             {
                 throw new SamlValidationException(
                     SamlValidationErrors.IssueInstantShouldNotBeInFuture,

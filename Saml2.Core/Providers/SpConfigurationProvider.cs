@@ -35,6 +35,10 @@ namespace Saml2.Core.Providers
             this.httpContextAccessor = httpContextAccessor;
         }
 
+        private HttpContext Context => this.httpContextAccessor.HttpContext;
+
+        private HttpRequest Request => Context.Request;
+
         public string GetEntityId()
         {
             this.Validate();
@@ -60,9 +64,7 @@ namespace Saml2.Core.Providers
                 transformedAuthnResponseEndpoint = $"/{transformedAuthnResponseEndpoint}";
             }
 
-            HttpRequest request = this.httpContextAccessor.HttpContext.Request;
-
-            return $"{request.Scheme}://{request.Host}{transformedAuthnResponseEndpoint}";
+            return $"{this.Request.Scheme}://{this.Request.Host}{transformedAuthnResponseEndpoint}";
         }
 
         public string GetLogoutLocation()
