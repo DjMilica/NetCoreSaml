@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Saml2.Core.Constants;
 using Saml2.Core.Errors;
+using Saml2.Core.Extensions;
 using Saml2.Core.Models.Xml;
 using Saml2.Core.Providers;
 using Saml2.Core.Services;
+using Saml2.Core.Stores;
 using Saml2.Core.Validators;
 using System;
 using System.Collections.Generic;
@@ -24,18 +26,21 @@ namespace Saml2.Core.Handlers
         private readonly ISerializeXmlService serializeXmlService;
         private readonly AuthnResponseContext authnResponseContext;
         private readonly IAuthnResponseValidatorListProvider authnResponseValidatorListProvider;
+        private readonly IAuthnRequestStore authnRequestStore;
 
         public AuthnResponseHandler(
             IHttpContextAccessor httpContextAccessor,
             ISerializeXmlService serializeXmlService,
             AuthnResponseContext authnResponseContext,
-            IAuthnResponseValidatorListProvider authnResponseValidatorListProvider
+            IAuthnResponseValidatorListProvider authnResponseValidatorListProvider,
+            IAuthnRequestStore authnRequestStore
         )
         {
             this.httpContextAccessor = httpContextAccessor;
             this.serializeXmlService = serializeXmlService;
             this.authnResponseContext = authnResponseContext;
             this.authnResponseValidatorListProvider = authnResponseValidatorListProvider;
+            this.authnRequestStore = authnRequestStore;
         }
 
         private HttpContext Context => this.httpContextAccessor.HttpContext;
@@ -72,6 +77,11 @@ namespace Saml2.Core.Handlers
             foreach(ISamlAuthnResponseValidator validator in validators)
             {
                 await validator.Validate(xmlResponseObject);
+            }
+
+            if (xmlResponseObject.InResponseTo.IsNotNullOrWhitspace())
+            {
+                await this.authnRequestStore.Remove(xmlResponseObject.InResponseTo);
             }
 
             return "returnUrl";
