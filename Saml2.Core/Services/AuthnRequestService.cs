@@ -6,13 +6,15 @@ using Saml2.Core.Factories;
 using Saml2.Core.Models;
 using Saml2.Core.Models.Xml;
 using Saml2.Core.Providers;
+using Saml2.Core.Stores;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace Saml2.Core.Services
 {
     public interface IAuthnRequestService
     {
-        string CreateRedirectUrl();
+        Task<string> CreateRedirectUrl();
         string CreatePostData();
     }
 
@@ -23,13 +25,15 @@ namespace Saml2.Core.Services
         private readonly IAuthnRequestXmlProvider authnRequestXmlProvider;
         private readonly ISamlRedirectDataFactory samlRedirectDataFactory;
         private readonly ISpConfigurationProvider spConfigurationProvider;
+        private readonly IAuthnRequestStore authnRequestStore;
 
         public AuthnRequestService(
             ILogger<AuthnRequestService> logger,
             IAuthnRequestFactory authnRequestFactory,
             IAuthnRequestXmlProvider authnRequestXmlProvider,
             ISamlRedirectDataFactory samlRedirectDataFactory,
-            ISpConfigurationProvider spConfigurationProvider
+            ISpConfigurationProvider spConfigurationProvider,
+            IAuthnRequestStore authnRequestStore
         )
         {
             this.logger = logger;
@@ -37,9 +41,10 @@ namespace Saml2.Core.Services
             this.authnRequestXmlProvider = authnRequestXmlProvider;
             this.samlRedirectDataFactory = samlRedirectDataFactory;
             this.spConfigurationProvider = spConfigurationProvider;
+            this.authnRequestStore = authnRequestStore;
         }
 
-        public string CreateRedirectUrl()
+        public async Task<string> CreateRedirectUrl()
         {
             AuthnRequest request = this.authnRequestFactory.Create();
 
@@ -50,6 +55,8 @@ namespace Saml2.Core.Services
             SignatureAlgorithm signatureAlgorithm = signRequest ? this.spConfigurationProvider.GetAuthenticationRequestSigningAlgorithm() : null;
 
             SamlRedirectData samlRedirectData = this.samlRedirectDataFactory.Create(request.Destination, requestXml, CorrespondenceType.Request, signRequest, null, signatureAlgorithm);
+
+            await this.authnRequestStore.Insert(request.Id);
 
             return samlRedirectData.ToRedirectUrl();
         }

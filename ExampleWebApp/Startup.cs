@@ -32,6 +32,8 @@ namespace ExampleWebApp
 
             services.Configure<SamlConfiguration>(Configuration.GetSection("Saml"));
 
+            services.AddDistributedMemoryCache();
+
             services.AddSamlServices();
 
             services
@@ -44,6 +46,13 @@ namespace ExampleWebApp
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/auth/login";
+                })
+                .AddSaml("lala", options =>
+                {
+                    options.IdentityProviderConfiguration = new IdentityProviderConfiguration()
+                    {
+                        EntityId = "http://lala/exk19fnc2urbp2lBa5d7",
+                    };
                 })
                 .AddSaml("okta", options =>
                 {

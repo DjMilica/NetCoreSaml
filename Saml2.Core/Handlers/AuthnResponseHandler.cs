@@ -44,7 +44,6 @@ namespace Saml2.Core.Handlers
 
         public async Task<string> Handle()
         {
-            
             IFormCollection form = Request.Form;
 
             SamlValidationGuard.NotNull(
@@ -62,6 +61,8 @@ namespace Saml2.Core.Handlers
             byte[] decodedBytes = Convert.FromBase64String(encodedResponse);
             string decodedResponse = Encoding.UTF8.GetString(decodedBytes);
             AuthnResponse xmlResponseObject = this.serializeXmlService.Deserialize<AuthnResponse>(decodedResponse);
+
+            SamlValidationGuard.NotNull(xmlResponseObject, "Received serialized SAML authn xml response should not ne null");
 
             this.authnResponseContext.StringifiedResponse = decodedResponse;
             this.authnResponseContext.Response = xmlResponseObject;

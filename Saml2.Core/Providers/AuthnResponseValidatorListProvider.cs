@@ -16,10 +16,22 @@ namespace Saml2.Core.Providers
         private readonly List<ISamlAuthnResponseValidator> validators = new List<ISamlAuthnResponseValidator>();
 
         public AuthnResponseValidatorListProvider(
-            AuthResponseAttributeValidator authResponseAttributeValidator
+            AuthnResponseIssuerValidator authnResponseIssuerValidator,
+            AuthResponseAttributeValidator authResponseAttributeValidator,
+            AuthnResponseStatusValidator authnResponseStatusValidator,
+            AuthnResponseSignatureValidator authnResponseSignatureValidator,
+            AuthnResponseDecryptAssertionValidator authnResponseDecryptAssertionValidator,
+            AuthnResponseAssertionSignatureValidator authnResponseAssertionSignatureValidator,
+            AuthnResponseAssertionValidator authnResponseAssertionValidator
         )
         {
+            this.validators.Add(authnResponseIssuerValidator);
             this.validators.Add(authResponseAttributeValidator);
+            this.validators.Add(authnResponseStatusValidator);
+            this.validators.Add(authnResponseSignatureValidator);
+            this.validators.Add(authnResponseDecryptAssertionValidator);
+            this.validators.Add(authnResponseAssertionSignatureValidator);
+            this.validators.Add(authnResponseAssertionValidator);
         }
 
         public List<ISamlAuthnResponseValidator> Get()
