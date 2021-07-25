@@ -24,5 +24,6 @@ namespace Saml2.Core.Configuration
 
         public bool WantAuthnRequestsSigned { get; set; }
 
+        public string PublicKeyPath { get; set; }
     }
 }

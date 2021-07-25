@@ -128,7 +128,7 @@ namespace Saml2.Core.Providers
 
             string publicKeyFilePath = this.configuration.PublicKeyFilePath;
 
-            if (publicKeyFilePath.IsNotNullOrWhitspace())
+            if (!publicKeyFilePath.IsNotNullOrWhitspace())
             {
                 throw new SamlInternalException("Service provider configuration public key file path is not defined!");
             }

@@ -59,7 +59,7 @@ namespace Saml2.Core.Extensions
 
             services.AddTransient<ISamlSignatureHelper, SamlSignatureHelper>();
 
-            services.AddTransient<IRsaKeyProvider, RsaKeyProvider>();
+            services.AddTransient<ISamlAsymmetricKeyProvider, SamlAsymmetricKeyProvider>();
 
             services.AddTransient<IAuthnResponseHandler, AuthnResponseHandler>();
 
@@ -70,7 +70,6 @@ namespace Saml2.Core.Extensions
             services.AddTransient<AuthnResponseStatusValidator>();
             services.AddTransient<AuthnResponseSignatureValidator>();
             services.AddTransient<AuthnResponseDecryptAssertionValidator>();
-            services.AddTransient<AuthnResponseAssertionSignatureValidator>();
             services.AddTransient<AuthnResponseAssertionValidator>();
             services.AddTransient<IAuthnResponseValidatorListProvider, AuthnResponseValidatorListProvider>();
 

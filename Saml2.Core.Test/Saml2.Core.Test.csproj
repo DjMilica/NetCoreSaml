@@ -25,4 +25,17 @@
     <ProjectReference Include="..\Saml2.Core\Saml2.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="TestData\OktaSignedResponseAndAssertion.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\OktaEncodedResponse.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\SapIdpEncodedResponse.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

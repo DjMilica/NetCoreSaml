@@ -7,14 +7,15 @@ using System.Text;
 
 namespace Saml2.Core.Providers
 {
-    public interface IRsaKeyProvider
+    public interface ISamlAsymmetricKeyProvider
     {
-        RSA GetPrivate(string key);
+        RSA GetPrivateRSA(string key);
+        X509Certificate2 GetPublicX509(string key);
     }
 
-    public class RsaKeyProvider : IRsaKeyProvider
+    public class SamlAsymmetricKeyProvider : ISamlAsymmetricKeyProvider
     {
-        public RSA GetPrivate(string key)
+        public RSA GetPrivateRSA(string key)
         {
             RSA rsa = RSA.Create();
 
@@ -35,6 +36,15 @@ namespace Saml2.Core.Providers
             }
 
             return rsa;
+        }
+
+        public X509Certificate2 GetPublicX509(string key)
+        {
+            string transformedKey = key.Replace("-----BEGIN CERTIFICATE-----", string.Empty).Replace("-----END CERTIFICATE-----", string.Empty);
+            transformedKey = transformedKey.Replace(Environment.NewLine, string.Empty);
+            byte[] publicKeyBytes = Convert.FromBase64String(transformedKey);
+
+            return new X509Certificate2(publicKeyBytes);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Saml2.Core.Configuration;
 using Saml2.Core.Enums;
 using Saml2.Core.Errors;
+using Saml2.Core.Extensions;
+using Saml2.Core.Helpers;
 
 namespace Saml2.Core.Providers
 {
@@ -11,6 +13,7 @@ namespace Saml2.Core.Providers
         BindingType GetLogoutRequestBinding();
         int GetMillisecondsSkew();
         string GetRedirectBindingAuthnEndpoint();
+        string GetPublicKey();
     }
 
     public class IdpConfigurationProvider: IIdpConfigurationProvider
@@ -60,6 +63,18 @@ namespace Saml2.Core.Providers
             }
 
             return endpoint;
+        }
+
+        public string GetPublicKey()
+        {
+            string publicKeyFilePath = this.configuration.PublicKeyPath;
+
+            if (!publicKeyFilePath.IsNotNullOrWhitspace())
+            {
+                throw new SamlInternalException("Idp configuration public key file path is not defined!");
+            }
+
+            return FileHelper.Read(publicKeyFilePath);
         }
      }
 }
