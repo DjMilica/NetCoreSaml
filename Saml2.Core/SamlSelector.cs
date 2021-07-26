@@ -104,5 +104,6 @@
         public const string ProtocolBinding = "ProtocolBinding";
         public const string AssertionConsumerServiceUrl = "AssertionConsumerServiceURL";
         public const string AllowCreate = "AllowCreate";
+        public const string XsiNil = "nil";
     }
 }

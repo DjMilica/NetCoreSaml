@@ -227,16 +227,16 @@ namespace Saml2.Core.Test.Services
 
             Assert.Equal("uid", assertion.AttributeStatements[0].Attributes[0].Name);
             Assert.Equal("urn:oasis:names:tc:SAML:2.0:attrname-format:basic", assertion.AttributeStatements[0].Attributes[0].NameFormat);
-            Assert.Equal("test", assertion.AttributeStatements[0].Attributes[0].AttributeValues[0]);
+            Assert.Equal("test", assertion.AttributeStatements[0].Attributes[0].AttributeValues[0].GetValue());
 
             Assert.Equal("mail", assertion.AttributeStatements[0].Attributes[1].Name);
             Assert.Equal("urn:oasis:names:tc:SAML:2.0:attrname-format:basic", assertion.AttributeStatements[0].Attributes[1].NameFormat);
-            Assert.Equal("test@example.com", assertion.AttributeStatements[0].Attributes[1].AttributeValues[0]);
+            Assert.Equal("test@example.com", assertion.AttributeStatements[0].Attributes[1].AttributeValues[0].GetValue());
 
             Assert.Equal("eduPersonAffiliation", assertion.AttributeStatements[0].Attributes[2].Name);
             Assert.Equal("urn:oasis:names:tc:SAML:2.0:attrname-format:basic", assertion.AttributeStatements[0].Attributes[2].NameFormat);
-            Assert.Equal("users", assertion.AttributeStatements[0].Attributes[2].AttributeValues[0]);
-            Assert.Equal("examplerole1", assertion.AttributeStatements[0].Attributes[2].AttributeValues[1]);
+            Assert.Equal("users", assertion.AttributeStatements[0].Attributes[2].AttributeValues[0].GetValue());
+            Assert.Equal("examplerole1", assertion.AttributeStatements[0].Attributes[2].AttributeValues[1].GetValue());
 
             #endregion  
         }
