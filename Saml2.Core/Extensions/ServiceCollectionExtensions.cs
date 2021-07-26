@@ -77,6 +77,8 @@ namespace Saml2.Core.Extensions
             services.AddTransient<IRepeatedAssertionValidator, RepeatedAssertionValidator>();
             services.AddTransient<ITimeAttributesValidator, TimeAttributesValidator>();
             services.AddTransient<IAssertionSubjectConfirmationValidator, AssertionSubjectConfirmationValidator>();
+            services.AddTransient<INameIdValidator, NameIdValidator>();
+            services.AddTransient<IAssertionSubjectConfirmationDataValidator, AssertionSubjectConfirmationDataValidator>();
 
             services.AddTransient<AuthResponseAttributeValidator>();
             services.AddTransient<AuthnResponseIssuerValidator>();

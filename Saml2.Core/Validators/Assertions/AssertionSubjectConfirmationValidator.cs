@@ -1,4 +1,5 @@
-﻿using Saml2.Core.Errors;
+﻿using Saml2.Core.Constants;
+using Saml2.Core.Errors;
 using Saml2.Core.Models.Xml;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,18 @@ namespace Saml2.Core.Validators.Assertions
 
     public class AssertionSubjectConfirmationValidator: IAssertionSubjectConfirmationValidator
     {
+        private readonly INameIdValidator nameIdValidator;
+        private readonly IAssertionSubjectConfirmationDataValidator assertionSubjectConfirmationDataValidator;
+
+        public AssertionSubjectConfirmationValidator(
+            INameIdValidator nameIdValidator,
+            IAssertionSubjectConfirmationDataValidator assertionSubjectConfirmationDataValidator
+        )
+        {
+            this.nameIdValidator = nameIdValidator;
+            this.assertionSubjectConfirmationDataValidator = assertionSubjectConfirmationDataValidator;
+        }
+
         public async Task ValidateList(List<SubjectConfirmation> subjectConfirmations)
         {
             if (subjectConfirmations != null)
@@ -42,7 +55,33 @@ namespace Saml2.Core.Validators.Assertions
 
         public async Task Validate(SubjectConfirmation subjectConfirmation)
         {
+            SamlValidationGuard.NotNull(
+                subjectConfirmation,
+                "Defined subject confirmation is null."
+            );
 
+            SamlValidationGuard.NotNullOrEmptyString(
+                subjectConfirmation.Method,
+                "Subject confirmation method should not be null or empty string."
+            );
+
+            List<string> allowedMethods = new List<string>() { 
+                SamlConstant.BearerConfirmationMethod, 
+                SamlConstant.HokConfirmationMethod, 
+                SamlConstant.SenderVoucesConfirmationMethod 
+            };
+
+            SamlValidationGuard.NotTrue(
+                allowedMethods.Contains(subjectConfirmation.Method),
+                $"Confirmation method {subjectConfirmation.Method} is not allowed."
+            );
+
+            this.nameIdValidator.ValidateOptional(subjectConfirmation.NameId, subjectConfirmation.EncryptedId);
+
+            await this.assertionSubjectConfirmationDataValidator.Validate(
+                subjectConfirmation.SubjectConfirmationData,
+                subjectConfirmation.Method
+            );
         }
     }
 }

@@ -7,6 +7,9 @@
         public const string BindingTypeHttpPost = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST";
         public const string SamlRequest = "SAMLRequest";
         public const string SamlResponse = "SAMLResponse";
+
         public const string BearerConfirmationMethod = "urn:oasis:names:tc:SAML:2.0:cm:bearer";
+        public const string HokConfirmationMethod = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
+        public const string SenderVoucesConfirmationMethod = "urn:oasis:names:tc:SAML:2.0:cm:sender-vouches";
     }
 }

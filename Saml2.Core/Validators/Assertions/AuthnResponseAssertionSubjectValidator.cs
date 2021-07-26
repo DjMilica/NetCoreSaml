@@ -14,15 +14,15 @@ namespace Saml2.Core.Validators.Assertions
 
     public class AuthnResponseAssertionSubjectValidator : IAuthnResponseAssertionSubjectValidator
     {
-        private readonly INameIdFormatValidator nameIdFormatValidator;
+        private readonly INameIdValidator nameIdValidator;
         private readonly IAssertionSubjectConfirmationValidator assertionSubjectConfirmationValidator;
 
         public AuthnResponseAssertionSubjectValidator(
-            INameIdFormatValidator nameIdFormatValidator,
+            INameIdValidator nameIdValidator,
             IAssertionSubjectConfirmationValidator assertionSubjectConfirmationValidator
         ) 
         {
-            this.nameIdFormatValidator = nameIdFormatValidator;
+            this.nameIdValidator = nameIdValidator;
             this.assertionSubjectConfirmationValidator = assertionSubjectConfirmationValidator;
         }
 
@@ -38,12 +38,7 @@ namespace Saml2.Core.Validators.Assertions
                 throw new SamlValidationException("Minimum one of the <SubjectConfirmation> and <NameId> should be defined in <Subject>.");
             }
 
-            if (subject.EncryptedId != null)
-            {
-               // TODO should decrypt nameId first
-            }
-
-            this.nameIdFormatValidator.Validate(subject.NameId);
+            this.nameIdValidator.ValidateOptional(subject.NameId, subject.EncryptedId);
 
             await this.assertionSubjectConfirmationValidator.ValidateList(subject.SubjectConfirmations);
         }
