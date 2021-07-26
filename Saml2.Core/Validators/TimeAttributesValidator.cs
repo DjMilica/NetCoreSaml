@@ -9,6 +9,7 @@ namespace Saml2.Core.Validators
     public interface ITimeAttributesValidator
     {
         void ValidateIssueInstant(DateTime issueInstant);
+        void ValidateAuthnInstant(DateTime authnInstant);
         void ValidateNotBeforeAndNotOnOrAfter(DateTime notBefore, DateTime notOnOrAfter);
         void ValidateNotBefore(DateTime notBefore);
         void ValidateNotOnOrAfter(DateTime notOnOrAfter);
@@ -28,6 +29,11 @@ namespace Saml2.Core.Validators
         public void ValidateIssueInstant(DateTime issueInstant)
         {
             this.ValidateInstantAttribute(issueInstant, SamlAttributeSelector.IssueInstant);
+        }
+
+        public void ValidateAuthnInstant(DateTime authnInstant)
+        {
+            this.ValidateInstantAttribute(authnInstant, SamlAttributeSelector.AuthnInstant);
         }
 
         public void ValidateNotBeforeAndNotOnOrAfter(DateTime notBefore, DateTime notOnOrAfter)

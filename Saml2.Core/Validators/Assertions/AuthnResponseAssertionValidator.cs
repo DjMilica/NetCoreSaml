@@ -67,9 +67,9 @@ namespace Saml2.Core.Validators.Assertions
 
             await this.authnResponseAssertionConditionsValidator.Validate(assertion.Conditions);
 
-            assertion.AuthnStatements?.ForEach(async x => await this.authnResponseAssertionAuthnStatementValidator.Validate(x));
+            await this.authnResponseAssertionAuthnStatementValidator.ValidateOptionalList(assertion.AuthnStatements);
 
-            assertion.AttributeStatements?.ForEach(async x => await this.authnResponseAssertionAttributeStatementValidator.Validate(x));
+            await this.authnResponseAssertionAttributeStatementValidator.ValidateOptionalList(assertion.AttributeStatements);
 
             await this.repeatedAssertionValidator.Validate(assertion);
         }
