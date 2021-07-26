@@ -11,7 +11,6 @@ namespace Saml2.Core.Providers
         string GetEntityId();
         BindingType GetAuthnRequestBinding();
         BindingType GetLogoutRequestBinding();
-        int GetMillisecondsSkew();
         string GetRedirectBindingAuthnEndpoint();
         string GetPublicKey();
     }
@@ -41,11 +40,6 @@ namespace Saml2.Core.Providers
         public BindingType GetLogoutRequestBinding()
         {
             return this.configuration.LogoutRequestBinding ?? BindingType.HttpRedirect;
-        }
-
-        public int GetMillisecondsSkew()
-        {
-            return this.configuration.MillisecondsSkew ?? 600;
         }
 
         public bool GetUseNameIdAsSpUserId()

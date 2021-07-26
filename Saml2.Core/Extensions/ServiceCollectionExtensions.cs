@@ -13,6 +13,7 @@ using Saml2.Core.Providers;
 using Saml2.Core.Services;
 using Saml2.Core.Stores;
 using Saml2.Core.Validators;
+using Saml2.Core.Validators.Assertions;
 using System.Linq;
 
 namespace Saml2.Core.Extensions
@@ -64,13 +65,25 @@ namespace Saml2.Core.Extensions
             services.AddTransient<IAuthnResponseHandler, AuthnResponseHandler>();
 
             services.AddScoped<AuthnResponseContext>();
+
+            services.AddTransient<INameIdFormatValidator, NameIdFormatValidator>();
+            services.AddTransient<IAuthnResponseAssertionValidator, AuthnResponseAssertionValidator>();
+            services.AddTransient<IAuthnResponseAssertionAttributesValidator, AuthnResponseAssertionAttributesValidator>();
+            services.AddTransient<IAuthnResponseAssertionIssuerValidator, AuthnResponseAssertionIssuerValidator>();
+            services.AddTransient<IAuthnResponseAssertionSubjectValidator, AuthnResponseAssertionSubjectValidator>();
+            services.AddTransient<IAuthnResponseAssertionConditionsValidator, AuthnResponseAssertionConditionsValidator>();
+            services.AddTransient<IAuthnResponseAssertionAuthnStatementValidator, AuthnResponseAssertionAuthnStatementValidator>();
+            services.AddTransient<IAuthnResponseAssertionAttributeStatementValidator, AuthnResponseAssertionAttributeStatementValidator>();
+            services.AddTransient<IRepeatedAssertionValidator, RepeatedAssertionValidator>();
+            services.AddTransient<ITimeAttributesValidator, TimeAttributesValidator>();
+            services.AddTransient<IAssertionSubjectConfirmationValidator, AssertionSubjectConfirmationValidator>();
+
             services.AddTransient<AuthResponseAttributeValidator>();
             services.AddTransient<AuthnResponseIssuerValidator>();
-            services.AddTransient<INameIdFormatValidator, NameIdFormatValidator>();
             services.AddTransient<AuthnResponseStatusValidator>();
             services.AddTransient<AuthnResponseSignatureValidator>();
             services.AddTransient<AuthnResponseDecryptAssertionValidator>();
-            services.AddTransient<AuthnResponseAssertionValidator>();
+            services.AddTransient<AuthnResponseAssertionListValidator>();
             services.AddTransient<IAuthnResponseValidatorListProvider, AuthnResponseValidatorListProvider>();
 
             return services;

@@ -10,5 +10,7 @@
         public string AuthnRequestSigningAlgorithm { get; set; }
         public string PrivateKeyFilePath { get; set; }
         public string PublicKeyFilePath { get; set;  }
+        public bool? ValidateTimeAttributes { get; set; }
+        public int? MillisecondsSkew { get; set; }
     }
 }

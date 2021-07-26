@@ -10,8 +10,6 @@ namespace Saml2.Core.Configuration
 
         public BindingType? LogoutRequestBinding { get; set; }
 
-        public int? MillisecondsSkew { get; set; }
-
         public bool? UseNameIdAsSpUserId { get; set; }
 
         public string HttpPostSingleSignOnService { get; set; }

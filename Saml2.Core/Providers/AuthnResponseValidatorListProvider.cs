@@ -1,5 +1,6 @@
 ﻿using Saml2.Core.Models.Xml;
 using Saml2.Core.Validators;
+using Saml2.Core.Validators.Assertions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,7 @@ namespace Saml2.Core.Providers
             AuthnResponseStatusValidator authnResponseStatusValidator,
             AuthnResponseSignatureValidator authnResponseSignatureValidator,
             AuthnResponseDecryptAssertionValidator authnResponseDecryptAssertionValidator,
-            AuthnResponseAssertionValidator authnResponseAssertionValidator
+            AuthnResponseAssertionListValidator authnResponseAssertionListValidator
         )
         {
             this.validators.Add(authnResponseIssuerValidator);
@@ -29,7 +30,7 @@ namespace Saml2.Core.Providers
             this.validators.Add(authnResponseStatusValidator);
             this.validators.Add(authnResponseDecryptAssertionValidator);
             this.validators.Add(authnResponseSignatureValidator);
-            this.validators.Add(authnResponseAssertionValidator);
+            this.validators.Add(authnResponseAssertionListValidator);
         }
 
         public List<ISamlAuthnResponseValidator> Get()

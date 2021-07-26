@@ -18,6 +18,8 @@ namespace Saml2.Core.Providers
         SignatureAlgorithm GetAuthenticationRequestSigningAlgorithm();
         string GetPrivateKey();
         string GetPublicKey();
+        bool GetValidateTimeAttributes();
+        int GetMillisecondsSkew();
 
     }
 
@@ -134,6 +136,20 @@ namespace Saml2.Core.Providers
             }
 
             return FileHelper.Read(publicKeyFilePath);
+        }
+
+        public bool GetValidateTimeAttributes()
+        {
+            this.Validate();
+
+            return this.configuration.ValidateTimeAttributes ?? true;
+        }
+
+        public int GetMillisecondsSkew()
+        {
+            this.Validate();
+
+            return this.configuration.MillisecondsSkew ?? 600;
         }
 
         private void Validate()
