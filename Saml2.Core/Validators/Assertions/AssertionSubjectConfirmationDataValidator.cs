@@ -21,16 +21,19 @@ namespace Saml2.Core.Validators.Assertions
         private readonly ISpConfigurationProvider spConfigurationProvider;
         private readonly ITimeAttributesValidator timeAttributesValidator;
         private readonly IAuthnRequestStore authnRequestStore;
+        private readonly AuthnResponseContext authnResponseContext;
 
         public AssertionSubjectConfirmationDataValidator(
             ISpConfigurationProvider spConfigurationProvider,
             ITimeAttributesValidator timeAttributesValidator,
-            IAuthnRequestStore authnRequestStore
+            IAuthnRequestStore authnRequestStore,
+            AuthnResponseContext authnResponseContext
         )
         {
             this.spConfigurationProvider = spConfigurationProvider;
             this.timeAttributesValidator = timeAttributesValidator;
             this.authnRequestStore = authnRequestStore;
+            this.authnResponseContext = authnResponseContext;
         }
 
         public async Task Validate(SubjectConfirmationData subjectConfirmationData, string method)
@@ -65,6 +68,8 @@ namespace Saml2.Core.Validators.Assertions
                     subjectConfirmationData.Recipient == authnResponseLocation,
                     $"Bearer Recipient attribute should have authentication response location {authnResponseLocation}. Received value  is {subjectConfirmationData.Recipient}."
                 );
+
+                this.authnResponseContext.bearerSubjectConfirmations.Add(subjectConfirmationData);
             }
             else if (subjectConfirmationData == null)
             {

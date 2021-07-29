@@ -37,6 +37,7 @@ namespace Saml2.Core.Extensions
             }
 
             services.AddTransient<IAuthnRequestStore, AuthnRequestStore>();
+            services.AddTransient<IAssertionStore, AssertionStore>();
 
             services.AddTransient<ISpConfigurationProvider, SpConfigurationProvider>();
 
