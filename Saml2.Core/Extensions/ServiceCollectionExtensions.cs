@@ -39,29 +39,26 @@ namespace Saml2.Core.Extensions
             services.AddTransient<IAuthnRequestStore, AuthnRequestStore>();
             services.AddTransient<IAssertionStore, AssertionStore>();
 
+            services.AddTransient<IAuthnRequestXmlProvider, AuthnRequestXmlProvider>();
             services.AddTransient<ISpConfigurationProvider, SpConfigurationProvider>();
-
-            services.AddTransient<ISerializeXmlService, SerializeXmlService>();
-
-            services.AddScoped<IIdpConfigurationProviderFactory, IdpConfigurationProviderFactory>();
-
-            services.AddTransient<IAuthnRequestFactory, AuthnRequestFactory>();
+            services.AddTransient<ISamlAsymmetricKeyProvider, SamlAsymmetricKeyProvider>();
 
             services.AddTransient<IAuthnRequestService, AuthnRequestService>();
+            services.AddTransient<ISerializeXmlService, SerializeXmlService>();
+            services.AddTransient<IDecryptXmlElementService, DecryptXmlElementService>();
 
-            services.AddTransient<IAuthnRequestXmlProvider, AuthnRequestXmlProvider>();
+            services.AddScoped<IIdpConfigurationProviderFactory, IdpConfigurationProviderFactory>();
+            services.AddTransient<IAuthnRequestFactory, AuthnRequestFactory>();
+            services.AddTransient<ISamlRedirectDataFactory, SamlRedirectDataFactory>();
 
             services.AddTransient<ISamlSchemeGenerator, SamlSchemeGenerator>();
-
-            services.AddTransient<ISamlRedirectDataFactory, SamlRedirectDataFactory>();
 
             services.AddTransient<ISamlEncoder, SamlEncoder>();
 
             services.AddTransient<ISigningUrlQueryBuilder, SigningUrlQueryBuilder>();
 
             services.AddTransient<ISamlSignatureHelper, SamlSignatureHelper>();
-
-            services.AddTransient<ISamlAsymmetricKeyProvider, SamlAsymmetricKeyProvider>();
+            services.AddTransient<ISamlEncryptionHelper, SamlEncryptionHelper>();
 
             services.AddTransient<IAuthnResponseHandler, AuthnResponseHandler>();
 

@@ -1,6 +1,8 @@
 ﻿using Saml2.Core.Constants;
 using Saml2.Core.Errors;
+using Saml2.Core.Helpers;
 using Saml2.Core.Models.Xml;
+using Saml2.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,17 +13,37 @@ namespace Saml2.Core.Validators.Assertions
     public class AuthnResponseAssertionListValidator : BaseAuthnResponseValidator
     {
         private readonly IAuthnResponseAssertionValidator authnResponseAssertionValidator;
+        private readonly IDecryptXmlElementService decryptXmlElementService;
 
         public AuthnResponseAssertionListValidator(
             AuthnResponseContext authnResponseContext,
-            IAuthnResponseAssertionValidator authnResponseAssertionValidator
+            IAuthnResponseAssertionValidator authnResponseAssertionValidator,
+            IDecryptXmlElementService decryptXmlElementService
         ) : base(authnResponseContext)
         {
             this.authnResponseAssertionValidator = authnResponseAssertionValidator;
+            this.decryptXmlElementService = decryptXmlElementService;
         }
 
         public override async Task Validate(AuthnResponse data)
         {
+            if (data.EncryptedAssertions != null)
+            {
+                List<Assertion> decryptedAssertions = this.decryptXmlElementService.DecryptElementsFromXml<Assertion>(
+                    this.authnResponseContext.StringifiedResponse,
+                    SamlElementSelector.EncryptedAssertion
+                );
+
+                if (data.Assertions != null)
+                {
+                    data.Assertions.AddRange(decryptedAssertions);
+                } 
+                else
+                {
+                    data.Assertions = decryptedAssertions;
+                }
+            }
+
             // There should be at least one assertion with authn statement
             List<Assertion> assertionsWithAuthnStatements = data.Assertions.FindAll(x => x.AuthnStatements != null && x.AuthnStatements.Count > 0);
 

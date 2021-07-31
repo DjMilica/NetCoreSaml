@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 
 namespace Saml2.Core.Models.Xml
 {
+    [XmlRoot(ElementName = SamlElementSelector.Assertion, Namespace = NamespaceConstant.Saml)]
     public class Assertion: BaseRootElement
     {
         [XmlElement(ElementName = SamlElementSelector.Subject, Namespace = NamespaceConstant.Saml)]

@@ -10,6 +10,6 @@ namespace Saml2.Core.Models.Xml
         public EncryptedData EncryptedData { get; set; }
 
         [XmlElement(ElementName = SamlElementSelector.EncryptedKey, Namespace = NamespaceConstant.Xenc)]
-        public List<EncryptedKey> EncryptedKey { get; set; }
+        public List<EncryptedKey> EncryptedKeys { get; set; }
     }
 }
