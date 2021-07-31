@@ -1,5 +1,6 @@
 ﻿using Saml2.Core.Errors;
 using Saml2.Core.Models.Xml;
+using Saml2.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,48 +9,58 @@ namespace Saml2.Core.Validators
 {
     public interface INameIdValidator
     {
-        void ValidateRequired(NameId nameId, EncryptedId encryptedId);
-        void ValidateOptional(NameId nameId, EncryptedId encryptedId);
+        void ValidateInSubjectConfirmation(SubjectConfirmation subjectConfirmation);
+        void ValidateInSubject(Subject subject);
 
     }
 
     public class NameIdValidator: INameIdValidator
     {
         private readonly INameIdFormatValidator nameIdFormatValidator;
+        private readonly IDecryptXmlElementService decryptXmlElementService;
+        private readonly AuthnResponseContext authnResponseContext;
 
         public NameIdValidator(
-            INameIdFormatValidator nameIdFormatValidator
+            INameIdFormatValidator nameIdFormatValidator,
+            IDecryptXmlElementService decryptXmlElementService,
+            AuthnResponseContext authnResponseContext
         ) 
         {
             this.nameIdFormatValidator = nameIdFormatValidator;
+            this.decryptXmlElementService = decryptXmlElementService;
+            this.authnResponseContext = authnResponseContext;
         }
 
-        public void ValidateOptional(NameId nameId, EncryptedId encryptedId)
+        public void ValidateInSubjectConfirmation(SubjectConfirmation subjectConfirmation)
         {
-            if (encryptedId != null)
+            NameId nameId = this.ValidateOptional(subjectConfirmation.NameId, subjectConfirmation.EncryptedId);
+
+            subjectConfirmation.NameId = nameId;
+        }
+
+        public void ValidateInSubject(Subject subject)
+        {
+            NameId nameId = this.ValidateOptional(subject.NameId, subject.EncryptedId);
+
+            subject.NameId = nameId;
+        }
+
+        private NameId ValidateOptional(NameId nameId, EncryptedID encryptedId)
+        {
+            if (nameId == null && encryptedId != null)
             {
-                // TODO should decrypt nameId first
+                nameId = this.decryptXmlElementService.DecryptElementFromParsedXml<NameId, EncryptedID>(
+                    encryptedId,
+                    SamlElementSelector.EncryptedId
+                );
             }
 
             if (nameId != null)
             {
                 this.nameIdFormatValidator.Validate(nameId);
             }
-        }
 
-        public void ValidateRequired(NameId nameId, EncryptedId encryptedId)
-        {
-            if (encryptedId != null)
-            {
-                // TODO should decrypt nameId first
-            }
-
-            SamlValidationGuard.NotNull(
-                nameId,
-                "NameId element or encryptedId element are required."
-            );
-
-            this.nameIdFormatValidator.Validate(nameId);
+            return nameId;
         }
     }
 }

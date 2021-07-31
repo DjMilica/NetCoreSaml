@@ -41,6 +41,11 @@ namespace Saml2.Core.Helpers
 
             T parsedElement = this.serializeXmlService.Deserialize<T>(decryptedElement);
 
+            if (parsedElement == null)
+            {
+                throw new SamlInternalException($"Encrypted element {typeof(T).Name} is not decrypted properly.");
+            }
+
             return parsedElement;
         }
 

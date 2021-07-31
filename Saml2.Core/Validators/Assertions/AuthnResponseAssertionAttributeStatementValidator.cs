@@ -1,5 +1,7 @@
 ﻿using Saml2.Core.Errors;
+using Saml2.Core.Helpers;
 using Saml2.Core.Models.Xml;
+using Saml2.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,16 +17,29 @@ namespace Saml2.Core.Validators.Assertions
 
     public class AuthnResponseAssertionAttributeStatementValidator : IAuthnResponseAssertionAttributeStatementValidator
     {
+        private readonly IDecryptXmlElementService decryptXmlElementService;
+        private readonly AuthnResponseContext authnResponseContext;
 
-        public AuthnResponseAssertionAttributeStatementValidator() 
+        public AuthnResponseAssertionAttributeStatementValidator(
+            IDecryptXmlElementService decryptXmlElementService,
+            AuthnResponseContext authnResponseContext
+        ) 
         {
+            this.decryptXmlElementService = decryptXmlElementService;
+            this.authnResponseContext = authnResponseContext;
         }
 
         public async Task Validate(AttributeStatement attributeStatement)
         {
-            if (attributeStatement.EncryptedAttributes != null)
+            if (attributeStatement.EncryptedAttributes != null && attributeStatement.EncryptedAttributes.Count > 0)
             {
-                // TODO decrypt these encrypted attributes
+                attributeStatement.Attributes = attributeStatement.Attributes ?? new List<Models.Xml.Attribute>();
+                
+                foreach(EncryptedAttribute encryptedAttribute in attributeStatement.EncryptedAttributes)
+                {
+                    Models.Xml.Attribute decryptedAttribute = this.decryptXmlElementService.DecryptElementFromParsedXml<Models.Xml.Attribute, EncryptedAttribute>(encryptedAttribute, SamlElementSelector.EncryptedAttribute);
+                    attributeStatement.Attributes.Add(decryptedAttribute);
+                }
             } 
 
             if (attributeStatement.Attributes == null || attributeStatement.Attributes.Count == 0)

@@ -94,5 +94,65 @@ namespace Saml2.Core.Test.Helpers
 
             #endregion   
         }
+
+        [Fact]
+        public async Task ShouldDecryptAttribute()
+        {
+            #region Arrange
+            string response = FileHelper.Read("./TestData/AssertionWithEncryptedAttributeAndNameId.xml");
+
+            string key = FileHelper.Read("./TestData/privateKey.pem");
+
+            spConfigurationProvider.GetPrivateKey().Returns(key);
+
+            Assertion xmlAssertionObject = this.serializeXmlService.Deserialize<Assertion>(response);
+
+            EncryptedAttribute encryptedAttribute = xmlAssertionObject.AttributeStatements.First().EncryptedAttributes.First();
+
+            #endregion
+
+            #region Act
+
+            Models.Xml.Attribute result = this.service.DecryptElementFromParsedXml<Models.Xml.Attribute, EncryptedAttribute>(encryptedAttribute, SamlElementSelector.EncryptedAttribute);
+
+            #endregion
+
+            #region Assert
+
+            Assert.NotNull(result);
+            Assert.Equal("UserId", result.Name);
+
+            #endregion   
+        }
+
+        [Fact]
+        public async Task ShouldDecryptNameId()
+        {
+            #region Arrange
+            string response = FileHelper.Read("./TestData/AssertionWithEncryptedAttributeAndNameId.xml");
+
+            string key = FileHelper.Read("./TestData/privateKey.pem");
+
+            spConfigurationProvider.GetPrivateKey().Returns(key);
+
+            Assertion xmlAssertionObject = this.serializeXmlService.Deserialize<Assertion>(response);
+
+            EncryptedID encryptedNameId = xmlAssertionObject.Subject.EncryptedId;
+
+            #endregion
+
+            #region Act
+
+            NameId result = this.service.DecryptElementFromParsedXml<NameId, EncryptedID>(encryptedNameId, SamlElementSelector.EncryptedId);
+
+            #endregion
+
+            #region Assert
+
+            Assert.NotNull(result);
+            Assert.Equal("P016043", result.Value);
+
+            #endregion   
+        }
     }
 }

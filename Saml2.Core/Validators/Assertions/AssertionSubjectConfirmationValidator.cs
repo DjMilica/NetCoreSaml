@@ -76,7 +76,7 @@ namespace Saml2.Core.Validators.Assertions
                 $"Confirmation method {subjectConfirmation.Method} is not allowed."
             );
 
-            this.nameIdValidator.ValidateOptional(subjectConfirmation.NameId, subjectConfirmation.EncryptedId);
+            this.nameIdValidator.ValidateInSubjectConfirmation(subjectConfirmation);
 
             await this.assertionSubjectConfirmationDataValidator.Validate(
                 subjectConfirmation.SubjectConfirmationData,

@@ -12,7 +12,7 @@ namespace Saml2.Core.Models.Xml
         public NameId NameId { get; set; }
 
         [XmlElement(ElementName = SamlElementSelector.EncryptedId, Namespace = NamespaceConstant.Saml)]
-        public EncryptedId EncryptedId { get; set; }
+        public EncryptedID EncryptedId { get; set; }
 
         [XmlElement(ElementName = SamlElementSelector.SubjectConfirmationData, Namespace = NamespaceConstant.Saml)]
         public SubjectConfirmationData SubjectConfirmationData { get; set; }

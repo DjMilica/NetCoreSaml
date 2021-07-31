@@ -38,7 +38,7 @@ namespace Saml2.Core.Validators.Assertions
                 throw new SamlValidationException("Minimum one of the <SubjectConfirmation> and <NameId> should be defined in <Subject>.");
             }
 
-            this.nameIdValidator.ValidateOptional(subject.NameId, subject.EncryptedId);
+            this.nameIdValidator.ValidateInSubject(subject);
 
             await this.assertionSubjectConfirmationValidator.ValidateList(subject.SubjectConfirmations);
         }

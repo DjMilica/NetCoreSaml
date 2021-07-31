@@ -27,7 +27,7 @@ namespace Saml2.Core.Validators.Assertions
 
         public override async Task Validate(AuthnResponse data)
         {
-            if (data.EncryptedAssertions != null)
+            if (data.EncryptedAssertions != null && data.EncryptedAssertions.Count > 0)
             {
                 List<Assertion> decryptedAssertions = this.decryptXmlElementService.DecryptElementsFromXml<Assertion>(
                     this.authnResponseContext.StringifiedResponse,

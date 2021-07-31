@@ -25,7 +25,7 @@
         public const string DigestMethod = "DigestMethod";
         public const string DigestValue = "DigestValue";
         public const string EncryptedAssertion = "EncryptedAssertion";
-        public const string EncryptedAttribute = "EnryptedAttribute";
+        public const string EncryptedAttribute = "EncryptedAttribute";
         public const string EncryptedData = "EncryptedData";
         public const string EncryptedId = "EncryptedID";
         public const string EncryptedKey = "EncryptedKey";

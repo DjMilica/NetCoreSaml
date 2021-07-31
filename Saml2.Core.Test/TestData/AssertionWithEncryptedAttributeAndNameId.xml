@@ -1,0 +1,61 @@
+﻿<Assertion xmlns="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#" xmlns:ns3="http://www.w3.org/2001/04/xmlenc#" ID="A-bb4a2147-0b32-4715-a5a4-0ce796566645" IssueInstant="2020-06-29T09:11:02.824Z" Version="2.0">
+  <Issuer>http://cpq-dev-adfs-0ade.corp.milos.rs/adfs/services/trust</Issuer>
+  <Subject>
+    <EncryptedID>
+      <xenc:EncryptedData xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" Type="http://www.w3.org/2001/04/xmlenc#Element">
+        <xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+        <dsig:KeyInfo xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+          <xenc:EncryptedKey>
+            <xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"/>
+            <xenc:CipherData>
+              <xenc:CipherValue>S46z931Ra6Lw7iRu1UIvsKt2yQlk0c4R029sPKHlREo5AQ+GzHv+NU7RKvpn3mpHJwC7zqexqCc0eE9MsyFyKFkLNjiTxeTgMitgfGQ6BOQoW66kg0cT864q4C4c3+romvJZJHXVFl5xFwVSxrhXJ1GwpbPC8SudsMVp5gHs7f3WVSIvwbe9CF1nn8J6l41Bx1SqTovmdm/zuBW8ybIOI6nZ+lUJnFmtMpTMpXfmQjxVi5AukOZ18HFXHB7HkyKmG8CkKdLksPEUohtkiQyHgWEatsJL+zH3UiYmtgI9frErO9IAXt41H6IV+20VHKfuzksaNhNwLSW40VCxZ1XqvpF5P2nY0+j1MwVs7EVsZlg6kWQlYHQ3u5odoav99FElzib0+Qyibow0X3cEAO+egi2WTmpQTaikYqlPIeRuKkyxkr2GYJMPdgGJZ3o64E5gf/09E42h+Yc4yonFJx20vU1p8zoopyhD2PSX+B8hDApwXk8H8MDLCLH5yl76mBDd3EbUDsH1TNe9rYuYmmNqd6aaQzyQQu8IlNxb539mRHWc6lp+NF9pzzWF1eHCe8OcmDJoWrWOC0bVzonMhraaZcZK4Y02KmpJBdpPMgq3rTUleycq46vWIcYT6jIBuPnquEgpLiwzX7yb/vzoBBNIf3VVYk48s4sLEB0jlYQ1Rdk=</xenc:CipherValue>
+            </xenc:CipherData>
+          </xenc:EncryptedKey>
+        </dsig:KeyInfo>
+        <xenc:CipherData>
+          <xenc:CipherValue>ocu2oAVzrmB7/AVTib0MBsRgHAElxKJ3fQ6KczCdcwdnNS1dFFplh6i9jbruC7hZC0ZTA3iJkFRJUntumtAGGnfmQOVunOMmEy/KbMktHACRSJfCxDhTm12UozuQhl/9W7B1BI2OTvTxGn0aIE4f3g==</xenc:CipherValue>
+        </xenc:CipherData>
+      </xenc:EncryptedData>
+    </EncryptedID>
+    <SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+      <SubjectConfirmationData InResponseTo="_6cdc9c90-b9e8-11ea-9b7f-c17fd42481c5" NotOnOrAfter="2200-01-18T06:21:48Z" Recipient="https://2005.commissions.salescloud.dev.sap/iamsvc/saml/login/receive"/>
+    </SubjectConfirmation>
+  </Subject>
+  <Conditions NotBefore="2014-07-17T01:01:18Z" NotOnOrAfter="2200-01-18T06:21:48Z">
+    <AudienceRestriction>
+      <Audience>COMM_ENTITYID</Audience>
+    </AudienceRestriction>
+  </Conditions>
+  <AuthnStatement AuthnInstant="2020-06-29T09:11:02.824Z" SessionIndex="S-SP-071d5646-0d0f-488f-b33a-f46f383e8bae" SessionNotOnOrAfter="2020-06-29T21:11:02.824Z">
+    <AuthnContext>
+      <AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport</AuthnContextClassRef>
+    </AuthnContext>
+  </AuthnStatement>
+  <AttributeStatement>
+    <EncryptedAttribute>
+      <xenc:EncryptedData xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" Type="http://www.w3.org/2001/04/xmlenc#Element">
+        <xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+        <dsig:KeyInfo xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+          <xenc:EncryptedKey>
+            <xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+            <xenc:CipherData>
+              <xenc:CipherValue>MgpCdUHdShN6WZfy/5rUcMwPHjb3uOSJOZvmNjNzZToPhdeVVgu6NuNWwQsv5sRZaMaiRXCRiCaJ5mo5C+cicArXJzb0hAOPddxUGxSkFp56c0wBKbg0TQdma5316z6pX0SevsCeL9eBJgscL2p4nmgYP1YzNSgRA9ycKH32aCM9TLg19yinjR3darM+IffDx9pyXWkLS2UYBcFcoegO6Y2K0ACFo5rTCJWGvspzK0D15ZB/ZIhdA9PKjkKdvMSKLWBTU4mEBvD73mSQMXzmYis7IvSb3fWScDGUsL4I5zQJFbLzBfRqK0TqkRFN3IAPEUIvI20kJrXDDMF9bZH98upygc3uWwJbi80q4wVHqc0Nq3nCpyW/N4rrHb9AnlHvlxq7ICRg2fCd4UkbCGb7FN59z2bRfGq81bx0dnuWrC1Y4pnyV1cpMah233WHhXU7pS4zG03FAZs4KiGcD/wEAyVOz9pH9Xkc2hJwf5rgP5Dw36wxL7q8Fuj9WLYxbadpXg/stq9tSUSag/F7CHJ046w3chu1o7SzPashgNpo3jKT/GDwMUnyU1fLRj2ZgPcfeS5qeE7WEJI2Z6+kwTgPFSxNSZ1FVZKu41zsxB855t4SiIpkZf4YpCVKQm3hpORNTH7vvaeLlG/ZwzaKsgvmypsrkhZWMmDyZzhlfyd3Uqc=</xenc:CipherValue>
+            </xenc:CipherData>
+          </xenc:EncryptedKey>
+        </dsig:KeyInfo>
+        <xenc:CipherData>
+          <xenc:CipherValue>QuGhJLTP5JkL5Un2sBWH12XK5KYJ4gIa4rKEt3qOplip91KxWsowiYuJHX7cLK0LlMkwpnw/tC+jQiN+iA/ndL/INm+4FL9bLCnZj/Um0kkNtXkRMJaXJOvpOJ9Nmn12LQ+WlQmFBLR6A/y5SlGxdqpuc/xgWjkghJ7LDZdIoB5oDsxNDMAnHsgSr4ooNbLeYFhI3P668lgI8yhM58gcMdFyXEFZCY3VVVCc0tZnbnLo2nf0HKHAIMYavpXFXhAua2swVgN1tSm/HXocKn/QVrLNoLrWJDCgn5dJNkj+ULb+2c2S+Y+d1i8sozwEhbEm9zXWEIS3xu0qJ9Y3vwTeTpD9LgOBzpXCs7y91SxDefQ=</xenc:CipherValue>
+        </xenc:CipherData>
+      </xenc:EncryptedData>
+    </EncryptedAttribute>
+  </AttributeStatement>
+</Assertion>
+
+
+<!-- Encrypted name id is:
+<NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">P016043</NameID> -->
+
+<!-- EncryptedAttribute is:
+<Attribute Name="UserId">
+        <AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">e906a088-7b55-4098-b0a1-fd3e9e6bc582</AttributeValue>
+</Attribute> -->
