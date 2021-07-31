@@ -58,6 +58,7 @@ namespace Saml2.Core.Validators
             if (nameId != null)
             {
                 this.nameIdFormatValidator.Validate(nameId);
+                this.authnResponseContext.NameIds.Add(nameId);
             }
 
             return nameId;

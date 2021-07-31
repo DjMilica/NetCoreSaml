@@ -79,6 +79,7 @@ namespace Saml2.Core.Validators.Assertions
                     }
                 }
 
+                this.authnResponseContext.Attributes.Add(attribute);
             }
         }
 

@@ -30,7 +30,7 @@ namespace Saml2.Core.Validators.Assertions
 
         public async Task Validate(Assertion assertion)
         {
-            if (this.authnResponseContext.bearerSubjectConfirmations.Count == 0)
+            if (this.authnResponseContext.bearerSubjectConfirmationsData.Count == 0)
             {
                 return;
             }
@@ -44,7 +44,7 @@ namespace Saml2.Core.Validators.Assertions
 
             DateTime? minimalNotOnOrAfter = null;
 
-            foreach(SubjectConfirmationData subjectConfirmationData in this.authnResponseContext.bearerSubjectConfirmations)
+            foreach(SubjectConfirmationData subjectConfirmationData in this.authnResponseContext.bearerSubjectConfirmationsData)
             {
                 if (!minimalNotOnOrAfter.HasValue || minimalNotOnOrAfter.Value > subjectConfirmationData.NotOnOrAfter)
                 {

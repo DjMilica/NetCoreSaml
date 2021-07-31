@@ -2,8 +2,10 @@
 using Saml2.Core.Constants;
 using Saml2.Core.Errors;
 using Saml2.Core.Extensions;
+using Saml2.Core.Models;
 using Saml2.Core.Models.Xml;
 using Saml2.Core.Providers;
+using Saml2.Core.Resolvers;
 using Saml2.Core.Services;
 using Saml2.Core.Stores;
 using Saml2.Core.Validators;
@@ -27,13 +29,15 @@ namespace Saml2.Core.Handlers
         private readonly AuthnResponseContext authnResponseContext;
         private readonly IAuthnResponseValidatorListProvider authnResponseValidatorListProvider;
         private readonly IAuthnRequestStore authnRequestStore;
+        private readonly IAuthnResponseUserDataResolver authnResponseUserDataResolver;
 
         public AuthnResponseHandler(
             IHttpContextAccessor httpContextAccessor,
             ISerializeXmlService serializeXmlService,
             AuthnResponseContext authnResponseContext,
             IAuthnResponseValidatorListProvider authnResponseValidatorListProvider,
-            IAuthnRequestStore authnRequestStore
+            IAuthnRequestStore authnRequestStore,
+            IAuthnResponseUserDataResolver authnResponseUserDataResolver
         )
         {
             this.httpContextAccessor = httpContextAccessor;
@@ -41,6 +45,7 @@ namespace Saml2.Core.Handlers
             this.authnResponseContext = authnResponseContext;
             this.authnResponseValidatorListProvider = authnResponseValidatorListProvider;
             this.authnRequestStore = authnRequestStore;
+            this.authnResponseUserDataResolver = authnResponseUserDataResolver;
         }
 
         private HttpContext Context => this.httpContextAccessor.HttpContext;
@@ -78,6 +83,8 @@ namespace Saml2.Core.Handlers
             {
                 await validator.Validate(xmlResponseObject);
             }
+
+            SamlUserData samlUserData = this.authnResponseUserDataResolver.Resolve();
 
             if (xmlResponseObject.InResponseTo.IsNotNullOrWhitspace())
             {

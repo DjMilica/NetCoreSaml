@@ -10,6 +10,7 @@ using Saml2.Core.Factories;
 using Saml2.Core.Handlers;
 using Saml2.Core.Helpers;
 using Saml2.Core.Providers;
+using Saml2.Core.Resolvers;
 using Saml2.Core.Services;
 using Saml2.Core.Stores;
 using Saml2.Core.Validators;
@@ -54,6 +55,8 @@ namespace Saml2.Core.Extensions
             services.AddTransient<ISamlSchemeGenerator, SamlSchemeGenerator>();
 
             services.AddTransient<ISamlEncoder, SamlEncoder>();
+
+            services.AddTransient<IAuthnResponseUserDataResolver, AuthnResponseUserDataResolver>();
 
             services.AddTransient<ISigningUrlQueryBuilder, SigningUrlQueryBuilder>();
 

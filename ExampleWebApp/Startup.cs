@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Saml2.Core.Configuration;
 using Saml2.Core.Extensions;
+using Saml2.Core.Models;
 
 namespace ExampleWebApp
 {
@@ -62,6 +63,14 @@ namespace ExampleWebApp
                         HttpRedirectSingleSignOnService = "https://dev-7375101.okta.com/app/dev-7375101_milicatest_1/exk19fnc2urbp2lBa5d7/sso/saml",
                         AuthnRequestBinding = Saml2.Core.Enums.BindingType.HttpRedirect,
                         PublicKeyPath = "./Certs/idpPublicKey.cert",
+                        UseNameIdAsSpUserId = true,
+                        UserAttributeMapping = new UserAttributeMapping()
+                        {
+                            Email = "Email",
+                            FirstName = "FirstName",
+                            LastName = "LastName"
+                        }
+                    
                     };
                 });
 

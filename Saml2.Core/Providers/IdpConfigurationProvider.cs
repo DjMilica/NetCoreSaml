@@ -3,6 +3,7 @@ using Saml2.Core.Enums;
 using Saml2.Core.Errors;
 using Saml2.Core.Extensions;
 using Saml2.Core.Helpers;
+using Saml2.Core.Models;
 
 namespace Saml2.Core.Providers
 {
@@ -13,6 +14,8 @@ namespace Saml2.Core.Providers
         BindingType GetLogoutRequestBinding();
         string GetRedirectBindingAuthnEndpoint();
         string GetPublicKey();
+        bool GetUseNameIdAsSpUserId();
+        UserAttributeMapping GetUserAttributeMapping();
     }
 
     public class IdpConfigurationProvider: IIdpConfigurationProvider
@@ -70,5 +73,17 @@ namespace Saml2.Core.Providers
 
             return FileHelper.Read(publicKeyFilePath);
         }
-     }
+
+        public UserAttributeMapping GetUserAttributeMapping()
+        {
+            UserAttributeMapping userAttributeMapping = this.configuration.UserAttributeMapping;
+
+            if (userAttributeMapping == null)
+            {
+                throw new SamlInternalException("Idp configuration user attribute mapping is not defined!");
+            }
+
+            return userAttributeMapping;
+        }
+    }
 }

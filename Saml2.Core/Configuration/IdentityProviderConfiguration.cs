@@ -1,4 +1,5 @@
 ﻿using Saml2.Core.Enums;
+using Saml2.Core.Models;
 
 namespace Saml2.Core.Configuration
 {
@@ -23,5 +24,7 @@ namespace Saml2.Core.Configuration
         public bool WantAuthnRequestsSigned { get; set; }
 
         public string PublicKeyPath { get; set; }
+
+        public UserAttributeMapping UserAttributeMapping { get; set; }
     }
 }
