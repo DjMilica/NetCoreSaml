@@ -21,8 +21,8 @@ namespace Saml2.Core.Factories
     public class IdpConfigurationProviderFactory : IIdpConfigurationProviderFactory
     {
         private IIdpConfigurationProvider provider;
-        private IAuthenticationSchemeProvider authenticationSchemeProvider;
-        private IOptionsMonitor<SamlAuthenticationOptions> optionsMonitor;
+        private readonly IAuthenticationSchemeProvider authenticationSchemeProvider;
+        private readonly IOptionsMonitor<SamlAuthenticationOptions> optionsMonitor;
 
         public IdpConfigurationProviderFactory(
             IAuthenticationSchemeProvider authenticationSchemeProvider,

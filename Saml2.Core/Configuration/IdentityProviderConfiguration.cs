@@ -26,5 +26,7 @@ namespace Saml2.Core.Configuration
         public string PublicKeyPath { get; set; }
 
         public UserAttributeMapping UserAttributeMapping { get; set; }
+
+        public string AuthnReturnUrl { get; set; }
     }
 }

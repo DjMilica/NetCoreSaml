@@ -78,7 +78,7 @@ namespace Saml2.Core.Handlers
             // should create auth request here
             if (idpConfigProvider.GetAuthnRequestBinding() == Enums.BindingType.HttpRedirect)
             {
-                string redirectUrl = await this.authnRequestService.CreateRedirectUrl();
+                string redirectUrl = await this.authnRequestService.CreateRedirectUrl(properties);
 
                 Context.Response.Redirect(redirectUrl);
             }

@@ -16,6 +16,7 @@ namespace Saml2.Core.Providers
         string GetPublicKey();
         bool GetUseNameIdAsSpUserId();
         UserAttributeMapping GetUserAttributeMapping();
+        string GetAuthnRedirectUrl();
     }
 
     public class IdpConfigurationProvider: IIdpConfigurationProvider
@@ -84,6 +85,18 @@ namespace Saml2.Core.Providers
             }
 
             return userAttributeMapping;
+        }
+
+        public string GetAuthnRedirectUrl()
+        {
+            string redirectUrl = this.configuration.AuthnReturnUrl;
+
+            if (redirectUrl == null)
+            {
+                throw new SamlInternalException("Idp configuration authn redirect url is not defined!");
+            }
+
+            return redirectUrl;
         }
     }
 }

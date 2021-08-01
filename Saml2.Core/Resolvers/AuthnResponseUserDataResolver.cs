@@ -1,10 +1,12 @@
-﻿using Saml2.Core.Errors;
+﻿using Saml2.Core.Constants;
+using Saml2.Core.Errors;
 using Saml2.Core.Extensions;
 using Saml2.Core.Models;
 using Saml2.Core.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace Saml2.Core.Resolvers
@@ -41,6 +43,7 @@ namespace Saml2.Core.Resolvers
                 }
 
                 samlUserData.UserId = this.authnResponseContext.NameIds.First().Value;
+                samlUserData.Claims.Add(new Claim(ClaimTypes.NameIdentifier, samlUserData.UserId));
             }
 
             UserAttributeMapping userAttributeMapping = this.idpConfigurationProvider.GetUserAttributeMapping();
@@ -50,21 +53,25 @@ namespace Saml2.Core.Resolvers
                 if (userAttributeMapping.Email != null && attribute.Name == userAttributeMapping.Email)
                 {
                     samlUserData.Email = attribute.AttributeValues.First().Value;
+                    samlUserData.Claims.Add(new Claim(ClaimTypes.Email, samlUserData.Email));
                 }
 
                 if (userAttributeMapping.FirstName != null && attribute.Name == userAttributeMapping.FirstName)
                 {
                     samlUserData.FirstName = attribute.AttributeValues.First().Value;
+                    samlUserData.Claims.Add(new Claim(ClaimTypes.GivenName, samlUserData.FirstName));
                 }
 
                 if (userAttributeMapping.LastName != null && attribute.Name == userAttributeMapping.LastName)
                 {
                     samlUserData.LastName = attribute.AttributeValues.First().Value;
+                    samlUserData.Claims.Add(new Claim(ClaimTypes.Surname, samlUserData.LastName));
                 }
 
                 if (userAttributeMapping.UserId != null && attribute.Name == userAttributeMapping.UserId && !useNameIdAsSpUserId)
                 {
                     samlUserData.UserId = attribute.AttributeValues.First().Value;
+                    samlUserData.Claims.Add(new Claim(ClaimTypes.Name, samlUserData.UserId));
                 }
             }
 
@@ -73,7 +80,11 @@ namespace Saml2.Core.Resolvers
                 throw new SamlValidationException("User id could not be extracted from saml response. Check UseNameIdAsSpUserId property or UserId mapping.");
             }
 
-            samlUserData.SessionInfo = this.authnResponseContext.SessionInfos.Count != 0 ? this.authnResponseContext.SessionInfos.First() : null;
+            if (this.authnResponseContext.SessionInfos.Count > 0)
+            {
+                samlUserData.SessionInfo = this.authnResponseContext.SessionInfos.First();
+                samlUserData.Claims.Add(new Claim(ClaimName.SessionIndex, samlUserData.SessionInfo.SessionIndex));
+            }
 
             return samlUserData;
         }

@@ -12,6 +12,7 @@ namespace Saml2.Core.Encoders
     {
         string Base64Encode(string data);
         string DeflateAndBase64Encode(string data);
+        string Base64DecodeAndInflate(string data);
     }
 
     public class SamlEncoder : ISamlEncoder
@@ -48,7 +49,7 @@ namespace Saml2.Core.Encoders
 
             using MemoryStream streamToFlushDecompressedData = new MemoryStream();
             using MemoryStream compressedStream = new MemoryStream(base64DecodedData);
-            using InflaterInputStream inflateStream = new InflaterInputStream(compressedStream);
+            using InflaterInputStream inflateStream = new InflaterInputStream(compressedStream, new Inflater(true));
 
             inflateStream.CopyTo(streamToFlushDecompressedData);
             streamToFlushDecompressedData.Position = 0;
@@ -56,7 +57,7 @@ namespace Saml2.Core.Encoders
 
             byte[] inflatedByteArray = streamToFlushDecompressedData.ToArray();
 
-            return Convert.ToString(inflatedByteArray);
+            return Encoding.UTF8.GetString(inflatedByteArray);
         }
     }
 }
