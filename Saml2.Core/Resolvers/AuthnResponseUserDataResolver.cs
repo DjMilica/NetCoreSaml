@@ -25,7 +25,7 @@ namespace Saml2.Core.Resolvers
             this.authnResponseContext = authnResponseContext;
         }
 
-        private IIdpConfigurationProvider idpConfigurationProvider => this.authnResponseContext.idpConfigurationProvider;
+        private IIdpConfigurationProvider idpConfigurationProvider => this.authnResponseContext.IdpConfigurationProvider;
 
         public SamlUserData Resolve()
         {
@@ -72,6 +72,8 @@ namespace Saml2.Core.Resolvers
             {
                 throw new SamlValidationException("User id could not be extracted from saml response. Check UseNameIdAsSpUserId property or UserId mapping.");
             }
+
+            samlUserData.SessionInfo = this.authnResponseContext.SessionInfos.Count != 0 ? this.authnResponseContext.SessionInfos.First() : null;
 
             return samlUserData;
         }

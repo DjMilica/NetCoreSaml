@@ -10,5 +10,6 @@ namespace Saml2.Core.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public SamlResolvedFromResponseSessionInfo SessionInfo { get; set; }
     }
 }

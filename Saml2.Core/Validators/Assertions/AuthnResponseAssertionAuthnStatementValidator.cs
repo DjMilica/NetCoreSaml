@@ -1,5 +1,6 @@
 ﻿using Saml2.Core.Errors;
 using Saml2.Core.Extensions;
+using Saml2.Core.Models;
 using Saml2.Core.Models.Xml;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,17 @@ namespace Saml2.Core.Validators.Assertions
     {
         private readonly ITimeAttributesValidator timeAttributesValidator;
         private readonly IAuthnContextValidator authnContextValidator;
+        private readonly AuthnResponseContext authnResponseContext;
 
         public AuthnResponseAssertionAuthnStatementValidator(
             ITimeAttributesValidator timeAttributesValidator,
-            IAuthnContextValidator authnContextValidator
+            IAuthnContextValidator authnContextValidator,
+            AuthnResponseContext authnResponseContext
         ) 
         {
             this.timeAttributesValidator = timeAttributesValidator;
             this.authnContextValidator = authnContextValidator;
+            this.authnResponseContext = authnResponseContext;
         }
 
         public async Task Validate(AuthnStatement authnStatement)
@@ -42,7 +46,18 @@ namespace Saml2.Core.Validators.Assertions
                 this.ValidateSubjectLocality(authnStatement.SubjectLocality);
             }
 
-            await this.authnContextValidator.Validate(authnStatement.AuthnContext);    
+            await this.authnContextValidator.Validate(authnStatement.AuthnContext);
+
+            SamlResolvedFromResponseSessionInfo samlResolvedFromResponseSessionInfo = new SamlResolvedFromResponseSessionInfo()
+            {
+                SessionIndex = authnStatement.SessionIndex,
+                SessionNotOnOrAfter = authnStatement.SessionNotOnOrAfter
+            };
+
+            if (samlResolvedFromResponseSessionInfo.SessionIndex.IsNotNullOrWhitspace())
+            {
+                this.authnResponseContext.SessionInfos.Add(samlResolvedFromResponseSessionInfo);
+            }
         }
 
         public async Task ValidateOptionalList(List<AuthnStatement> authnStatements)

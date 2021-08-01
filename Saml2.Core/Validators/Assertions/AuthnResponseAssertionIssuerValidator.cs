@@ -49,7 +49,7 @@ namespace Saml2.Core.Validators.Assertions
             }
 
             SamlValidationGuard.NotTrue(
-                this.authnResponseContext.idpConfigurationProvider.GetEntityId() == issuer.Value,
+                this.authnResponseContext.IdpConfigurationProvider.GetEntityId() == issuer.Value,
                 $"Assertion has unknown issuer {issuer.Value}."
             );
 

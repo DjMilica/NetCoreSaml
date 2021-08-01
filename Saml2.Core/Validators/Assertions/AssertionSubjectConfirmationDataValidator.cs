@@ -69,7 +69,7 @@ namespace Saml2.Core.Validators.Assertions
                     $"Bearer Recipient attribute should have authentication response location {authnResponseLocation}. Received value  is {subjectConfirmationData.Recipient}."
                 );
 
-                this.authnResponseContext.bearerSubjectConfirmationsData.Add(subjectConfirmationData);
+                this.authnResponseContext.BearerSubjectConfirmationsData.Add(subjectConfirmationData);
             }
             else if (subjectConfirmationData == null)
             {

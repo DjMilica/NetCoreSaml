@@ -49,7 +49,7 @@ namespace Saml2.Core.Validators
             IIdpConfigurationProvider idpConfigurationProvider = 
                     await this.idpConfigurationProviderFactory.CreateWithIdpEntityId(data.Issuer.Value);
 
-            this.authnResponseContext.idpConfigurationProvider = idpConfigurationProvider;
+            this.authnResponseContext.IdpConfigurationProvider = idpConfigurationProvider;
 
             this.nameIdFormatValidator.ValidateEntityFormat(data.Issuer.Value, data.Issuer.SpNameQualifier);
         }
