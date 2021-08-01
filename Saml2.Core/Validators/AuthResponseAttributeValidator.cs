@@ -13,15 +13,18 @@ namespace Saml2.Core.Validators
     {
         private readonly ISpConfigurationProvider spConfigurationProvider;
         private readonly IAuthnRequestStore authnRequestStore;
+        private readonly ITimeAttributesValidator timeAttributesValidator;
 
         public AuthResponseAttributeValidator(
             AuthnResponseContext authnResponseContext,
             ISpConfigurationProvider spConfigurationProvider,
-            IAuthnRequestStore authnRequestStore
+            IAuthnRequestStore authnRequestStore,
+            ITimeAttributesValidator timeAttributesValidator
         ) : base(authnResponseContext)
         {
             this.spConfigurationProvider = spConfigurationProvider;
             this.authnRequestStore = authnRequestStore;
+            this.timeAttributesValidator = timeAttributesValidator;
         }
 
         public override async Task Validate(AuthnResponse data)
@@ -39,13 +42,7 @@ namespace Saml2.Core.Validators
                 SamlElementSelector.AuthnResponse
             );
 
-            if (data.IssueInstant.Ticks > DateTime.UtcNow.Ticks)
-            {
-                throw new SamlValidationException(
-                    SamlValidationErrors.IssueInstantShouldNotBeInFuture,
-                    SamlElementSelector.AuthnResponse
-                );
-            }
+            this.timeAttributesValidator.ValidateIssueInstant(data.IssueInstant);
 
             if (data.Version != SamlConstant.Version)
             {

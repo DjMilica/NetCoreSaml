@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ExampleWebApp.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -40,7 +41,7 @@ namespace ExampleWebApp.Controllers
         public IActionResult LogIn(string provider, string returnUrl = null)
         {
             // Request a redirect to the external login provider.
-            string redirectUrl = Url.Action(nameof(LoginCallback), "Auth", new { returnUrl });
+            string redirectUrl = Url.Action(nameof(LoginCallback), "Auth", new { externalProvider = provider, returnUrl });
             AuthenticationProperties properties = 
                 this.signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
@@ -48,7 +49,7 @@ namespace ExampleWebApp.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginCallback(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> LoginCallback(string externalProvider, string returnUrl = null, string remoteError = null)
         {
             if (remoteError != null)
             {
@@ -56,37 +57,51 @@ namespace ExampleWebApp.Controllers
                 return RedirectToAction(nameof(LogIn));
             }
 
-            ExternalLoginInfo info = await this.signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
+            AuthenticateResult authResult = await HttpContext.AuthenticateAsync();
+
+            //ExternalLoginInfo info = await this.signInManager.GetExternalLoginInfoAsync();
+            //if (info == null)
+            //{
+            //    return RedirectToAction(nameof(LogIn));
+            //}
+
+            if (!authResult.Succeeded)
             {
                 return RedirectToAction(nameof(LogIn));
             }
 
+            ClaimsPrincipal principal = authResult.Principal;
+            AuthenticationProperties properties = authResult.Properties ?? new AuthenticationProperties();
+            string loginProvider = externalProvider;
+            string providerKey = authResult.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+
             // Sign in the user with this external login provider if the user already has a login.
             Microsoft.AspNetCore.Identity.SignInResult result = 
                 await this.signInManager.ExternalLoginSignInAsync(
-                    info.LoginProvider, 
-                    info.ProviderKey, 
+                    loginProvider, 
+                    providerKey, 
                     isPersistent: false
                 );
             
             if (result.Succeeded)
             {
-                this.logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+                this.logger.LogInformation("User logged in with {Name} provider.", loginProvider);
                 return RedirectToLocal(returnUrl);
             }
 
             // If the user does not have an account, make an account for it.
-            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var email = principal.FindFirstValue(ClaimTypes.Email);
             var user = new ApplicationUser { UserName = email, Email = email };
             var createUserResult = await this.userManager.CreateAsync(user);
             if (createUserResult.Succeeded)
             {
-                createUserResult = await this.userManager.AddLoginAsync(user, info);
+                string displayName = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).FirstOrDefault(s => s.Name == externalProvider).DisplayName;
+                UserLoginInfo userLoginInfo = new UserLoginInfo(loginProvider, providerKey, displayName);
+                createUserResult = await this.userManager.AddLoginAsync(user, userLoginInfo);
                 if (createUserResult.Succeeded)
                 {
                     await this.signInManager.SignInAsync(user, isPersistent: false);
-                    this.logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                    this.logger.LogInformation("User created an account using {Name} provider.", loginProvider);
                     return RedirectToLocal(returnUrl);
                 }
             }

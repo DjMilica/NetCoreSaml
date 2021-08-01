@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Saml2.Core.Configuration;
 using Saml2.Core.Services;
 using System.Threading.Tasks;
 
 namespace ExampleWebApp.Controllers
 {
+    [Authorize]
     public class SamlController: Controller
     {
         private readonly ISamlSchemeGenerator samlSchemeGenerator;

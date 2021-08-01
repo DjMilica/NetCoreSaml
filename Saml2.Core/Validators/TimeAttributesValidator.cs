@@ -68,7 +68,7 @@ namespace Saml2.Core.Validators
                 return;
             }
 
-            long notBeforeWithoutSkew = notBefore.Ticks - this.spConfigurationProvider.GetMillisecondsSkew();
+            long notBeforeWithoutSkew = notBefore.Ticks - this.spConfigurationProvider.GetMillisecondsSkew() * 10000;
 
             SamlValidationGuard.NotTrue(
                 notBeforeWithoutSkew < DateTime.UtcNow.Ticks,
@@ -84,7 +84,7 @@ namespace Saml2.Core.Validators
                 return;
             }
 
-            long notOnOrAfterWithSkew = notOnOrAfter.Ticks + this.spConfigurationProvider.GetMillisecondsSkew();
+            long notOnOrAfterWithSkew = notOnOrAfter.Ticks + this.spConfigurationProvider.GetMillisecondsSkew() * 10000;
 
             SamlValidationGuard.NotTrue(
                 notOnOrAfterWithSkew > DateTime.UtcNow.Ticks,
@@ -106,10 +106,11 @@ namespace Saml2.Core.Validators
                 $"Attribute {attributeName} should define valid time."
             );
 
-            long millisecondsWithoutSkew = instantMilliseconds - this.spConfigurationProvider.GetMillisecondsSkew();
+            long millisecondsWithoutSkew = instantMilliseconds - this.spConfigurationProvider.GetMillisecondsSkew() * 10000;
+            long utcNowTicks = DateTime.UtcNow.Ticks;
 
             SamlValidationGuard.NotTrue(
-                millisecondsWithoutSkew < DateTime.UtcNow.Ticks,
+                millisecondsWithoutSkew < utcNowTicks,
                 $"Attribute {attributeName} should not be in the future."
             );
         }

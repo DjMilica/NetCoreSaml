@@ -15,6 +15,7 @@ using Saml2.Core.Services;
 using Saml2.Core.Stores;
 using Saml2.Core.Validators;
 using Saml2.Core.Validators.Assertions;
+using Saml2.Core.XsdSchema;
 using System.Linq;
 
 namespace Saml2.Core.Extensions
@@ -67,6 +68,7 @@ namespace Saml2.Core.Extensions
 
             services.AddScoped<AuthnResponseContext>();
 
+            services.AddTransient<IXmlSchemaValidator, XmlSchemaValidator>();
             services.AddTransient<INameIdFormatValidator, NameIdFormatValidator>();
             services.AddTransient<IAuthnResponseAssertionValidator, AuthnResponseAssertionValidator>();
             services.AddTransient<IAuthnResponseAssertionAttributesValidator, AuthnResponseAssertionAttributesValidator>();
@@ -83,6 +85,7 @@ namespace Saml2.Core.Extensions
             services.AddTransient<IAudienceRestrictionValidator, AudienceRestrictionValidator>();
             services.AddTransient<IAuthnContextValidator, AuthnContextValidator>();
 
+            services.AddTransient<AuthnResponseXsdSchemaValidator>();
             services.AddTransient<AuthResponseAttributeValidator>();
             services.AddTransient<AuthnResponseIssuerValidator>();
             services.AddTransient<AuthnResponseStatusValidator>();
